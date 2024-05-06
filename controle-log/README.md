@@ -1,1 +1,0 @@
-# cópia controle de log

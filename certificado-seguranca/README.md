@@ -1,1 +1,0 @@
-# certificado segurança
