@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->uuid('id')->primary(); // Usando UUID como chave primária
+            $table->uuid('idUsuario')->primary(); // Usando UUID como chave primária
             $table->string('nomeUsuario');
             $table->string('email')->unique();
             $table->string('senha');
-            $table->foreignId('perfil_id')->constrained('perfils');
+            $table->foreignId('idPerfil')->constrained('perfils');
             $table->timestamps();
         });
     }   
