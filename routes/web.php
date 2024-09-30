@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\FeedController;
 
 // Rotas de registro e login (não precisam de autenticação)
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
@@ -28,4 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/postagens/criar', [PostagemController::class, 'create'])->name('postagem.criar');
     Route::post('/postagens/{id}/editar', [PostagemController::class, 'edit'])->name('postagem.editar');
     Route::delete('/postagens/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
+
+    // Rota para o feed de postagens
+    Route::get('/feed', [FeedController::class, 'index'])->name('feed');
+
 });
