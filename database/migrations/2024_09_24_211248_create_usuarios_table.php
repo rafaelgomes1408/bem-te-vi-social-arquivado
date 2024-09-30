@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nomeUsuario');
             $table->string('email')->unique();
             $table->string('senha');
-            $table->foreignId('idPerfil')->constrained('perfils');
+            $table->uuid('idPerfil')->nullable()->constrained('perfils'); // Chave estrangeira para a tabela 'perfils'
             $table->timestamps();
         });
     }   

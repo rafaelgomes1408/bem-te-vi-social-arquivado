@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('conteudo');
             $table->dateTime('dataHora');
             $table->boolean('isOfensiva')->default(false);
-            $table->foreignId('idUsuario')->constrained('usuarios'); // Relacionamento com a tabela Usuario
+            $table->uuid('idUsuario')->nullable()->constrained('usuarios'); // Relacionamento com a tabela Usuario
             $table->timestamps();
         });
     }
