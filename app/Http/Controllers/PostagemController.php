@@ -21,7 +21,7 @@ class PostagemController
             'idUsuario' => auth()->user()->idUsuario, // Relaciona a postagem com o usuário logado
         ]);
 
-        return redirect()->route('home'); // Redireciona para a página inicial
+        return redirect()->route('feed'); // Redireciona para o feed
     }
 
     // Função para editar uma postagem existente

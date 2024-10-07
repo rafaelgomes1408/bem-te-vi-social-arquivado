@@ -16,6 +16,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Rotas que precisam de autenticação
 Route::middleware('auth')->group(function () {
+    
     // Rota protegida para a página inicial
     Route::get('/home', function () {
         return view('home');
@@ -25,11 +26,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/perfil/{id}/editar', [UsuarioController::class, 'editProfile'])->name('perfil.editar');
     Route::post('/perfil/{id}/editar', [UsuarioController::class, 'editProfile']);
 
-    // Rotas protegidas para postagens
+    // Rota para exibir o formulário de criação de postagem (GET)
+    Route::get('/postagens/criar', function () {
+        return view('postagens.criar');
+    })->name('postagem.form');
+
+    // Rotas protegidas para criar, editar e deletar postagens
     Route::post('/postagens/criar', [PostagemController::class, 'create'])->name('postagem.criar');
     Route::post('/postagens/{id}/editar', [PostagemController::class, 'edit'])->name('postagem.editar');
     Route::delete('/postagens/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
-
+    
     // Rota para o feed de postagens
     Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 
