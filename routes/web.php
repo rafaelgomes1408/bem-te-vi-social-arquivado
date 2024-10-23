@@ -39,4 +39,6 @@ Route::middleware('auth')->group(function () {
     // Rota para o feed de postagens
     Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 
+    // Rota para denunciar postagens (por outros usuários)
+    Route::post('/postagens/{id}/denunciar', [PostagemController::class, 'denunciar'])->name('postagem.denunciar');
 });

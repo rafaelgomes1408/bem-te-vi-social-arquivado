@@ -29,6 +29,12 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Excluir</button>
                         </form>
+                    @else
+                        <!-- Botão para denunciar a postagem (apenas para outros usuários) -->
+                        <form action="{{ route('postagem.denunciar', $postagem->idPostagem) }}" method="POST" onsubmit="return confirm('Você quer denunciar esta postagem como ofensiva?');">
+                            @csrf
+                            <button type="submit" class="btn btn-warning">Denunciar</button>
+                        </form>
                     @endif
 
                 </div>
