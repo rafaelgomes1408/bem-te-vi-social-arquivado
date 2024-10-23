@@ -6,12 +6,17 @@ use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FeedController;
 
-// Rotas de registro e login (não precisam de autenticação)
+// Rotas de registro, login e recuperação de senha (não precisam de autenticação)
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
 Route::post('/registro', [UsuarioController::class, 'register']);
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+
+// Rota para recuperação de senha
+Route::get('/password/reset', [LoginController::class, 'showResetForm'])->name('password.request');
+
+// Rota para logout (precisa de autenticação)
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Rotas que precisam de autenticação
