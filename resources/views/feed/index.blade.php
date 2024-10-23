@@ -21,6 +21,16 @@
                             {{ optional($postagem->dataHora)->format('d/m/Y H:i') ?? 'Data não disponível' }}
                         </small>
                     </p>
+
+                    <!-- Botão para excluir a postagem (apenas para o dono da postagem) -->
+                    @if($postagem->idUsuario === auth()->user()->idUsuario)
+                        <form action="{{ route('postagem.deletar', $postagem->idPostagem) }}" method="POST" onsubmit="return confirm('Você tem certeza que deseja excluir esta postagem?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    @endif
+
                 </div>
             </div>
         @endforeach

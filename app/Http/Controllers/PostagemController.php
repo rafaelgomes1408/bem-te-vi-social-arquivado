@@ -37,10 +37,16 @@ class PostagemController
 
     // Função para excluir uma postagem
     public function delete($id)
-    {
-        $postagem = Postagem::find($id);
-        $postagem->delete();
+{
+    $postagem = Postagem::findOrFail($id);
 
-        return redirect()->route('home');
+    // Verifica se a postagem pertence ao usuário logado
+    if ($postagem->idUsuario === auth()->user()->idUsuario) {
+        $postagem->delete();
+        return redirect()->route('feed')->with('success', 'Postagem excluída com sucesso.');
     }
+
+    return redirect()->route('feed')->with('error', 'Você não tem permissão para excluir esta postagem.');
+}
+
 }
