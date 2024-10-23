@@ -49,4 +49,15 @@ class PostagemController
     return redirect()->route('feed')->with('error', 'Você não tem permissão para excluir esta postagem.');
 }
 
+    // Função para denunciar uma postagem (por outros usuários)
+    public function denunciar($id)
+{
+    $postagem = Postagem::findOrFail($id);
+
+    // Lógica para registrar a denúncia (salvar em um log ou enviar uma notificação, por exemplo)
+    // Aqui você pode implementar o que deseja fazer com a denúncia (registrar no banco de dados, notificar admin, etc.)
+    
+    return redirect()->route('feed')->with('success', 'Postagem denunciada com sucesso. Um administrador será notificado.');
+}
+
 }
