@@ -20,7 +20,10 @@
                     <!-- Campo E-mail -->
                     <div class="form-group mb-3">
                         <label for="email">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Campo Senha -->

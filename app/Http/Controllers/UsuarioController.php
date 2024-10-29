@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+
 
 class UsuarioController extends Controller
 {
@@ -16,22 +19,22 @@ class UsuarioController extends Controller
     // Função para registrar um novo usuário
     public function register(Request $request)
     {
-        // Validação de dados
+        // Validação dos dados de cadastro
         $request->validate([
-            'nomeUsuario' => 'required',
-            'email' => 'required|email|unique:usuarios,email',
-            'senha' => 'required|min:8',
+            'nomeCompleto' => 'required|string|max:255',
+            'email' => 'required|email|unique:usuarios,email', // Verifica se o e-mail é único
+            'password' => 'required|confirmed|min:8',
         ]);
 
-        // Criação do usuário
-        Usuario::create([
-            'nomeUsuario' => $request->input('nomeUsuario'),
-            'email' => $request->input('email'),
-            'senha' => bcrypt($request->input('senha')), // Senha criptografada
-            'idPerfil' => $request->input('idPerfil'), // Perfil padrão pode ser atribuído aqui
+        // Criação do novo usuário
+        User::create([
+            'nomeCompleto' => $request->nomeCompleto,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login'); // Redireciona para a tela de login
+        // Redirecionamento após cadastro bem-sucedido
+        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso! Você pode fazer login.');
     }
 
     // Função para editar perfil
