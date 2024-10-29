@@ -10,6 +10,17 @@ use App\Http\Controllers\FeedController;
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
 Route::post('/registro', [UsuarioController::class, 'register']);
 
+// Rota para exibir o formulário de registro
+Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
+Route::post('/registro', [UsuarioController::class, 'register']);
+
+// Rota para exibir os Termos de Utilização
+Route::get('/termos', [UsuarioController::class, 'mostrarTermos'])->name('termos');
+
+// Rota para concluir o cadastro após a aceitação dos Termos
+Route::post('/concluir-cadastro', [UsuarioController::class, 'concluirCadastro'])->name('concluirCadastro');
+
+// Rota para login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
