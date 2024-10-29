@@ -10,7 +10,7 @@ class UsuarioController extends Controller
     // Função para exibir o formulário de cadastro
     public function showRegisterForm()
     {
-        return view('usuarios.cadastro');
+        return view('auth.register');
     }
 
     // Função para registrar um novo usuário
