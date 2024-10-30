@@ -5,7 +5,18 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <h3 class="text-center mb-4">Bem-te-vi Social</h3>
+                <h3 class="text-center mb-4">Bem-te-vi Social - Login</h3>
+
+                <!-- Exibir mensagens de erro de login -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <!-- Formulário de Login -->
                 <form action="{{ route('login') }}" method="POST">
@@ -28,18 +39,10 @@
                         <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                     </div>
 
-                    <!-- Link de Esqueci minha Senha -->
+                    <!-- Links de recuperação de senha e cadastro -->
                     <div class="text-center">
-                        <p>Esqueceu sua senha? 
-                            <a href="{{ route('password.request') }}">Clique aqui!</a>
-                        </p>
-                    </div>
-
-                    <!-- Link para cadastro -->
-                    <div class="text-center">
-                        <p>Ainda não tem uma conta? 
-                            <a href="{{ route('registro') }}">Cadastre-se!</a>
-                        </p>
+                        <p>Esqueceu sua senha? <a href="{{ route('password.request') }}">Clique aqui!</a></p>
+                        <p>Ainda não tem uma conta? <a href="{{ route('registro') }}">Cadastre-se!</a></p>
                     </div>
                 </form>
             </div>
