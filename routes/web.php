@@ -1,16 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FeedController;
 
-// Rotas de registro, login e recuperação de senha (não precisam de autenticação)
-Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
-Route::post('/registro', [UsuarioController::class, 'register']);
-
-// Rota para exibir o formulário de registro
+// Rotas de registro e recuperação de senha (não precisam de autenticação)
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
 Route::post('/registro', [UsuarioController::class, 'register']);
 
@@ -20,19 +17,12 @@ Route::get('/termos', [UsuarioController::class, 'mostrarTermos'])->name('termos
 // Rota para concluir o cadastro após a aceitação dos Termos
 Route::post('/concluir-cadastro', [UsuarioController::class, 'concluirCadastro'])->name('concluirCadastro');
 
-// Rota para login
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-
-// Rota para recuperação de senha
-Route::get('/password/reset', [LoginController::class, 'showResetForm'])->name('password.request');
-
-// Rota para logout (precisa de autenticação)
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Inclui todas as rotas de autenticação padrão do Laravel (login, registro, recuperação de senha)
+Auth::routes();
 
 // Rotas que precisam de autenticação
 Route::middleware('auth')->group(function () {
-    
+
     // Rota protegida para a página inicial
     Route::get('/home', function () {
         return view('home');
