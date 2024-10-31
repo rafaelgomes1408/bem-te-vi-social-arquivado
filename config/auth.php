@@ -93,7 +93,7 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => env('password_reset_tokens'),
+            'table' => env('password_resets'), // Definindo o nome correto da tabela para tokens de redefinição
             'expire' => 60,
             'throttle' => 60,
         ],
