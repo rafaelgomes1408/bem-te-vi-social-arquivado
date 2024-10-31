@@ -7,7 +7,7 @@ use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FeedController;
 
-// Rotas de registro e recuperação de senha (não precisam de autenticação)
+// Rota para exibir o formulário de registro
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
 Route::post('/registro', [UsuarioController::class, 'register']);
 
