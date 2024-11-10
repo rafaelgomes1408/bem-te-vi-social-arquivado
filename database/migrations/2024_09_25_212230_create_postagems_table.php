@@ -16,8 +16,11 @@ return new class extends Migration
             $table->text('conteudo');
             $table->dateTime('dataHora');
             $table->boolean('isOfensiva')->default(false);
-            $table->uuid('idUsuario')->nullable()->constrained('usuarios'); // Relacionamento com a tabela Usuario
+            $table->uuid('idUsuario')->nullable();
             $table->timestamps();
+
+            // Definindo a chave estrangeira para a tabela 'usuarios'
+            $table->foreign('idUsuario')->references('idUsuario')->on('usuarios')->onDelete('cascade');
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('postagems');
+        Schema::dropIfExists('postagens'); // Corrigido para 'postagens'
     }
 };

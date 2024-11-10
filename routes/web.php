@@ -6,6 +6,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FeedController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 // Rota para exibir o formulário de registro
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
@@ -17,8 +19,14 @@ Route::get('/termos', [UsuarioController::class, 'mostrarTermos'])->name('termos
 // Rota para concluir o cadastro após a aceitação dos Termos
 Route::post('/concluir-cadastro', [UsuarioController::class, 'concluirCadastro'])->name('concluirCadastro');
 
-// Inclui todas as rotas de autenticação padrão do Laravel (login, registro, recuperação de senha)
-Auth::routes();
+// Rotas de recuperação de senha
+Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request'); // Formulário de pedido de link
+Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');   // Envia o link de redefinição de senha
+Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');  // Formulário de redefinição de senha
+Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');               // Processa a redefinição de senha
+
+// Inclui todas as rotas de autenticação padrão do Laravel (login, registro, logout)
+Auth::routes(['register' => false, 'reset' => false]); // 'reset' => false para evitar duplicação de rotas de reset
 
 // Rotas que precisam de autenticação
 Route::middleware('auth')->group(function () {
