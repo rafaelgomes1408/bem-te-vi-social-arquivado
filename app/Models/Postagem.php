@@ -2,32 +2,35 @@
 
 namespace App\Models;
 
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Postagem extends Model
 {
-    //use HasFactory;
     use HasUuids;
 
-    protected $table = 'postagens'; // Nome da tabela
+    protected $table = 'postagens'; // Nome da tabela no banco de dados
 
     // Especifica que a chave primária é 'idPostagem'
     protected $primaryKey = 'idPostagem';
 
-    protected $fillable = ['conteudo', 'dataHora', 'idUsuario'];
+    protected $fillable = ['conteudo', 'dataHora', 'idUsuario']; // Campos permitidos para atribuição em massa
 
-    public $incrementing = false; // Porque o UUID não é autoincrementado
-    protected $keyType = 'string'; // O tipo do UUID é string
+    public $incrementing = false; // UUID não é autoincrementado
+    protected $keyType = 'string'; // UUID é uma string
 
-    // Definindo o campo dataHora como uma data
-    protected $dates = ['dataHora'];
+    // Define o campo 'dataHora' como uma instância de Carbon para trabalhar com datas no Laravel
+    protected $casts = [
+        'dataHora' => 'datetime',
+    ];
 
-    // Relacionamento com o modelo Usuario
-    public function usuario()
+    /**
+     * Relacionamento com o modelo Usuario.
+     * Cada postagem pertence a um usuário.
+     */
+    public function usuario(): BelongsTo
     {
-        return $this->belongsTo(Usuario::class, 'idUsuario');
+        return $this->belongsTo(Usuario::class, 'idUsuario', 'idUsuario'); // Relacionamento com a chave estrangeira 'idUsuario'
     }
 }

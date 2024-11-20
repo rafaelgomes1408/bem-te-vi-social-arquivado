@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\FeedController;
+//use App\Http\Controllers\FeedController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\HomeController; // Adicionado o controlador de Home
 
 // Rota para exibir o formulário de registro
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
@@ -31,9 +32,7 @@ Auth::routes(['register' => false, 'reset' => false]); // 'reset' => false para 
 // Rotas que precisam de autenticação
 Route::middleware('auth')->group(function () {
     // Rota protegida para a página inicial
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home'); // Usando o HomeController para a rota /home
 
     // Rota para logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -53,7 +52,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/postagens/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
     
     // Rota para o feed de postagens
-    Route::get('/feed', [FeedController::class, 'index'])->name('feed');
+    //Route::get('/feed', [FeedController::class, 'index'])->name('feed');
+
+    // Página inicial do usuário autenticado ou de outro usuário
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Rota para denunciar postagens (por outros usuários)
     Route::post('/postagens/{id}/denunciar', [PostagemController::class, 'denunciar'])->name('postagem.denunciar');

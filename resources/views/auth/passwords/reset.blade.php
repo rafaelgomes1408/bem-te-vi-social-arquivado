@@ -14,12 +14,6 @@
                     <!-- Token de redefinição de senha -->
                     <input type="hidden" name="token" value="{{ $token }}">
 
-                    <!-- Campo E-mail -->
-                    <div class="form-group mb-3">
-                        <label for="email">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
-                    </div>
-
                     <!-- Campo Senha -->
                     <div class="form-group mb-3">
                         <label for="password">Nova Senha</label>

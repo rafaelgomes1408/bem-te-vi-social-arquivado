@@ -3,26 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Postagem;
+use App\Models\Usuario; // Certifique-se de que o modelo Usuario está corretamente importado
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * Exibe a página inicial do usuário ou de outro usuário.
      */
-    public function __construct()
+    public function index(Request $request)
     {
-        $this->middleware('auth');
-    }
+        // Determinar qual usuário exibir (próprio ou outro)
+        $usuario = $request->has('user_id') 
+            ? Usuario::findOrFail($request->user_id) 
+            : auth()->user();
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
+        // Carregar postagens do usuário selecionado
+        $postagens = Postagem::where('idUsuario', $usuario->idUsuario)
+            ->orderBy('dataHora', 'desc')
+            ->get();
+
+        // Pesquisa de outros usuários
+        $usuarios = [];
+        if ($request->has('search')) {
+            $usuarios = Usuario::where('nomeUsuario', 'LIKE', '%' . $request->search . '%')->get();
+        }
+
+        // Retorna a view com os dados do usuário, postagens e resultados da pesquisa
+        return view('home', compact('usuario', 'postagens', 'usuarios'));
     }
 }

@@ -6,36 +6,47 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Usuario extends Authenticatable
 {
     use HasFactory, HasUuids, Notifiable;
 
-    // Nome da tabela
+    // Nome da tabela no banco de dados
     protected $table = 'usuarios';
-    
-    // Especificando a chave primária como 'idUsuario'
+
+    // Definição da chave primária como 'idUsuario'
     protected $primaryKey = 'idUsuario';
 
-    // Adicionando os campos que podem ser preenchidos via atribuição em massa
+    // Os campos que podem ser preenchidos em massa
     protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil'];
 
-    // Ocultando a senha e o token de autenticação nas respostas JSON
+    // Campos ocultos nas respostas JSON
     protected $hidden = ['senha', 'remember_token'];
 
-    // Configura o campo 'senha' como o campo de senha esperado pelo Laravel
+    // Indica que a chave primária não é autoincrementada
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    /**
+     * Retorna a senha para autenticação do Laravel
+     */
     public function getAuthPassword()
     {
         return $this->senha;
     }
 
+    /**
+     * Define o nome do identificador de autenticação
+     */
     public function getAuthIdentifierName()
     {
-        // Alias para Laravel reconhecer 'idUsuario' como 'user_id'
         return 'idUsuario';
     }
 
-    // Alias para que o Laravel trate 'idUsuario' como 'user_id'
+    /**
+     * Mapeia 'user_id' para 'idUsuario' para compatibilidade com o Laravel
+     */
     public function getAttribute($key)
     {
         if ($key === 'user_id') {
@@ -44,9 +55,19 @@ class Usuario extends Authenticatable
         return parent::getAttribute($key);
     }
 
-    // Mutator para garantir que 'password' mapeia para 'senha' ao definir a senha
+    /**
+     * Mutator para criptografar a senha ao defini-la
+     */
     public function setPasswordAttribute($value)
     {
         $this->attributes['senha'] = bcrypt($value);
+    }
+
+    /**
+     * Relacionamento: Um usuário pode ter várias postagens
+     */
+    public function postagens(): HasMany
+    {
+        return $this->hasMany(Postagem::class, 'idUsuario', 'idUsuario');
     }
 }
