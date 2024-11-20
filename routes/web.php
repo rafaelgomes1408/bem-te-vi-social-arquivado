@@ -30,11 +30,13 @@ Auth::routes(['register' => false, 'reset' => false]); // 'reset' => false para 
 
 // Rotas que precisam de autenticação
 Route::middleware('auth')->group(function () {
-
     // Rota protegida para a página inicial
     Route::get('/home', function () {
         return view('home');
     })->name('home');
+
+    // Rota para logout
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Rotas protegidas para perfil de usuário
     Route::get('/perfil/{id}/editar', [UsuarioController::class, 'editProfile'])->name('perfil.editar');
