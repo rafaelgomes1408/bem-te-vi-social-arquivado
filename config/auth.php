@@ -24,7 +24,7 @@ return [
     'passwords' => [
         'usuarios' => [  // Atualizado para 'usuarios'
             'provider' => 'usuarios',
-            'table' => 'password_reset_tokens',  // Nome correto da tabela de tokens
+            'table' => 'password_reset_tokens',  // Tabela de tokens de redefinição
             'expire' => 60,
             'throttle' => 60,
         ],
