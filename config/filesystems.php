@@ -39,7 +39,16 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        // Novo diretório para imagens de perfil
+        'profile_pictures' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/profile_pictures'),
+            'url' => env('APP_URL') . '/storage/profile_pictures',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -71,6 +80,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('profile_pictures') => storage_path('app/public/profile_pictures'),
     ],
 
 ];

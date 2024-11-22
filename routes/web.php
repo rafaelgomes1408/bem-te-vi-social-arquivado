@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\PostagemController;
 use App\Http\Controllers\LoginController;
-//use App\Http\Controllers\FeedController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController; // Adicionado o controlador de Home
@@ -31,29 +30,30 @@ Auth::routes(['register' => false, 'reset' => false]); // 'reset' => false para 
 
 // Rotas que precisam de autenticação
 Route::middleware('auth')->group(function () {
-    // Rota protegida para a página inicial
-    Route::get('/home', [HomeController::class, 'index'])->name('home'); // Usando o HomeController para a rota /home
+
+    // Página inicial do usuário autenticado
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Rota para logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Rotas protegidas para perfil de usuário
-    Route::get('/perfil/{id}/editar', [UsuarioController::class, 'editProfile'])->name('perfil.editar');
-    Route::post('/perfil/{id}/editar', [UsuarioController::class, 'editProfile']);
+    // Rotas de Configurações
+    Route::prefix('configuracoes')->group(function () {
+        Route::get('/', [UsuarioController::class, 'showSettings'])->name('configuracoes');
+        Route::post('/salvar', [UsuarioController::class, 'updateSettings'])->name('configuracoes.salvar');
+        Route::post('/desativar', [UsuarioController::class, 'deactivateProfile'])->name('configuracoes.desativar');
+        Route::get('/log', [UsuarioController::class, 'viewLog'])->name('configuracoes.log');
+    });
 
-    // Rota para exibir o formulário de criação de postagem (GET)
-    Route::get('/postagens/criar', function () {
-        return view('postagens.criar');
-    })->name('postagem.form');
+    // Rotas de Postagens
+    Route::prefix('postagens')->group(function () {
+        Route::get('/criar', function () {
+            return view('postagens.criar');
+        })->name('postagem.form');
+        Route::post('/criar', [PostagemController::class, 'create'])->name('postagem.criar');
+        Route::post('/{id}/editar', [PostagemController::class, 'edit'])->name('postagem.editar');
+        Route::delete('/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
+        Route::post('/{id}/denunciar', [PostagemController::class, 'denunciar'])->name('postagem.denunciar');
+    });
 
-    // Rotas protegidas para criar, editar e deletar postagens
-    Route::post('/postagens/criar', [PostagemController::class, 'create'])->name('postagem.criar');
-    Route::post('/postagens/{id}/editar', [PostagemController::class, 'edit'])->name('postagem.editar');
-    Route::delete('/postagens/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
-
-    // Página inicial do usuário autenticado ou de outro usuário
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    // Rota para denunciar postagens (por outros usuários)
-    Route::post('/postagens/{id}/denunciar', [PostagemController::class, 'denunciar'])->name('postagem.denunciar');
 });

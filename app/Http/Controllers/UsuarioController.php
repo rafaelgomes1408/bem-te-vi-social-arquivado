@@ -9,70 +9,48 @@ use Illuminate\Validation\ValidationException;
 
 class UsuarioController extends Controller
 {
-    // Função para exibir o formulário de cadastro
-    public function showRegisterForm()
+    // Método para exibir o formulário de edição de perfil
+    public function editProfile($id)
     {
-        return view('auth.register');
+        // Busca o usuário pelo ID
+        $usuario = Usuario::findOrFail($id);
+
+        // Verifica se o usuário logado é o dono do perfil
+        if (Auth::user()->idUsuario !== $usuario->idUsuario) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para editar este perfil.');
+        }
+
+        // Retorna a view de edição do perfil com os dados do usuário
+        return view('usuario.editar', compact('usuario'));
     }
 
-    // Função para registrar um novo usuário
-    public function register(Request $request)
+    // Método para salvar as alterações do perfil
+    public function updateProfile(Request $request, $id)
     {
-        // Validação dos dados de cadastro
         $request->validate([
-            'nomeCompleto' => 'required|string|max:255',
-            'email' => 'required|email|unique:usuarios,email',
-            'password' => 'required|confirmed|min:8',
+            'nomeUsuario' => 'required|string|max:50',
+            'biografia' => 'nullable|string|max:250',
+            'imagemPerfil' => 'nullable|image|max:2048', // Valida o upload de imagem
         ]);
     
-        // Armazena os dados do usuário na sessão temporariamente
-        $request->session()->put('cadastro_temp', $request->only('nomeCompleto', 'email', 'password'));
+        $usuario = Auth::user();
+        $usuario->nomeUsuario = $request->input('nomeUsuario');
+        $usuario->biografia = $request->input('biografia');
     
-        // Redireciona para a página dos Termos de Utilização
-        return redirect()->route('termos');
-    }
+        // Lógica para lidar com o upload da imagem
+        if ($request->hasFile('imagemPerfil')) {
+            // Exclui a imagem antiga, se existir
+            if ($usuario->imagemPerfil) {
+                \Storage::delete('public/' . $usuario->imagemPerfil);
+            }
     
-    // Função para exibir os Termos de Utilização
-    public function mostrarTermos()
-    {
-        return view('auth.termos');
-    }
-
-    // Função para concluir o cadastro após aceitar os Termos de Utilização
-    public function concluirCadastro(Request $request)
-{
-    // Verifica se o usuário concordou com os Termos de Utilização
-    if ($request->input('concordo') !== 'sim') {
-        // Limpa os dados temporários e redireciona para o formulário de cadastro
-        $request->session()->forget('cadastro_temp');
-        return redirect()->route('registro')->withErrors(['message' => 'Você precisa concordar com os Termos para se cadastrar.']);
-    }
-
-    // Recupera os dados temporários do usuário armazenados na sessão
-    $dados = $request->session()->get('cadastro_temp');
+            // Faz o upload da nova imagem
+            $path = $request->file('imagemPerfil')->store('public/profile_pictures');
+            $usuario->imagemPerfil = str_replace('public/', '', $path); // Salva o caminho sem "public/"
+        }
     
-    // Cria o usuário na tabela 'usuarios'
-    \App\Models\Usuario::create([
-        'nomeUsuario' => $dados['nomeCompleto'],
-        'email' => $dados['email'],
-        'senha' => Hash::make($dados['password']),
-    ]);
-
-    // Limpa os dados temporários da sessão
-    $request->session()->forget('cadastro_temp');
-
-    // Redireciona para a página de login com uma mensagem de sucesso
-    return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso! Você pode fazer login.');
-}
-
-    // Função para editar o perfil do usuário
-    public function editProfile(Request $request, $id)
-    {
-        $usuario = Usuario::find($id);
-
-        // Atualização dos dados do usuário
-        $usuario->update($request->all());
-
-        return redirect()->route('perfil', $id);
+        $usuario->save();
+    
+        return redirect()->route('configuracoes')->with('success', 'Perfil atualizado com sucesso.');
     }
 }

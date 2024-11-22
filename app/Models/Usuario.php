@@ -19,7 +19,7 @@ class Usuario extends Authenticatable
     protected $primaryKey = 'idUsuario';
 
     // Os campos que podem ser preenchidos em massa
-    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil'];
+    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil', 'is_ativo'];
 
     // Campos ocultos nas respostas JSON
     protected $hidden = ['senha', 'remember_token'];
@@ -69,5 +69,13 @@ class Usuario extends Authenticatable
     public function postagens(): HasMany
     {
         return $this->hasMany(Postagem::class, 'idUsuario', 'idUsuario');
+    }
+
+    /**
+     * Verifica se o usuário está ativo
+     */
+    public function isAtivo(): bool
+    {
+        return $this->is_ativo;
     }
 }
