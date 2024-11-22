@@ -22,7 +22,7 @@ class PostagemController extends Controller
             'idUsuario' => Auth::user()->idUsuario, // Relaciona a postagem com o usuário logado
         ]);
 
-        return redirect()->route('feed')->with('success', 'Postagem criada com sucesso.');
+        return redirect()->route('home')->with('success', 'Postagem criada com sucesso.');
     }
 
     // Função para editar uma postagem existente
@@ -50,17 +50,18 @@ class PostagemController extends Controller
     // Função para excluir uma postagem
     public function delete($id)
     {
-        $postagem = Postagem::findOrFail($id);
+    $postagem = Postagem::findOrFail($id);
 
-        // Verifica se a postagem pertence ao usuário logado
-        if ($postagem->idUsuario !== Auth::user()->idUsuario) {
-            return redirect()->route('feed')->with('error', 'Você não tem permissão para excluir esta postagem.');
-        }
-
-        $postagem->delete();
-
-        return redirect()->route('feed')->with('success', 'Postagem excluída com sucesso.');
+    // Verifica se a postagem pertence ao usuário logado
+    if ($postagem->idUsuario !== auth()->user()->idUsuario) {
+        return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta postagem.');
     }
+
+    $postagem->delete();
+
+    return redirect()->route('home')->with('success', 'Postagem excluída com sucesso.');
+}
+
 
     // Função para denunciar uma postagem (por outros usuários)
     public function denunciar($id)

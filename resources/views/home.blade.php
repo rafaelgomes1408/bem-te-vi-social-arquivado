@@ -12,7 +12,7 @@
                     <h4>
                         Seja Bem-vindo, 
                         @if(auth()->user()->idUsuario === $usuario->idUsuario)
-                            {{ explode(' ', $usuario->nomeUsuario)[0] }}
+                            {{ explode(' ', auth()->user()->nomeUsuario)[0] }}
                         @else
                             {{ $usuario->nomeUsuario }}
                         @endif
@@ -23,7 +23,7 @@
             <div>
                 <a href="{{ route('home') }}" class="btn btn-light me-2"><i class="fas fa-home"></i></a>
                 @if(auth()->user()->idUsuario === $usuario->idUsuario)
-                    <a href="{{ route('perfil.editar', $usuario->idUsuario) }}" class="btn btn-light me-2"><i class="fas fa-cog"></i></a>
+                    <a href="{{ route('perfil.editar', auth()->user()->idUsuario) }}" class="btn btn-light me-2"><i class="fas fa-cog"></i></a>
                 @endif
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
@@ -100,6 +100,19 @@
                         <small class="text-muted">
                             Publicado em {{ $postagem->dataHora->format('d/m/Y H:i') }}
                         </small>
+
+                        <!-- Verifica se a postagem pertence ao usuário logado -->
+                        @if($postagem->idUsuario === auth()->user()->idUsuario)
+                            <div class="d-flex justify-content-end mt-2">
+                                <form action="{{ route('postagem.deletar', $postagem->idPostagem) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta postagem?')">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             @endif

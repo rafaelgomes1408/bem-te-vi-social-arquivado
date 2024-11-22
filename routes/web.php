@@ -50,9 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/postagens/criar', [PostagemController::class, 'create'])->name('postagem.criar');
     Route::post('/postagens/{id}/editar', [PostagemController::class, 'edit'])->name('postagem.editar');
     Route::delete('/postagens/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
-    
-    // Rota para o feed de postagens
-    //Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 
     // Página inicial do usuário autenticado ou de outro usuário
     Route::get('/home', [HomeController::class, 'index'])->name('home');
