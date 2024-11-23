@@ -43,6 +43,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/salvar', [UsuarioController::class, 'updateSettings'])->name('configuracoes.salvar');
         Route::post('/desativar', [UsuarioController::class, 'deactivateProfile'])->name('configuracoes.desativar');
         Route::get('/log', [UsuarioController::class, 'viewLog'])->name('configuracoes.log');
+        Route::get('/perfil/{id}/editar', [UsuarioController::class, 'editProfile'])->name('perfil.editar');
+        Route::post('/perfil/{id}/editar', [UsuarioController::class, 'updateProfile'])->name('perfil.atualizar');
+        });
+        
     });
 
     // Rotas de Postagens
@@ -54,6 +58,5 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/editar', [PostagemController::class, 'edit'])->name('postagem.editar');
         Route::delete('/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
         Route::post('/{id}/denunciar', [PostagemController::class, 'denunciar'])->name('postagem.denunciar');
-    });
+ });
 
-});
