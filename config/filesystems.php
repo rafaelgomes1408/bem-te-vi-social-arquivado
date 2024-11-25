@@ -42,16 +42,7 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
-        ],
-
-        // Novo diretório para imagens de perfil
-        'profile_pictures' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public/profile_pictures'),
-            'url' => env('APP_URL') . '/storage/profile_pictures',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
+    ],
 
         's3' => [
             'driver' => 's3',

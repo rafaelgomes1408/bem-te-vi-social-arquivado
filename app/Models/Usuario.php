@@ -78,4 +78,17 @@ class Usuario extends Authenticatable
     {
         return $this->is_ativo;
     }
+
+    /**
+     * Retorna a URL da imagem de perfil ou a imagem padrão
+     */
+    public function getImagemPerfilUrl(): string
+    {
+        if ($this->imagemPerfil) {
+            return asset('storage/' . $this->imagemPerfil);
+        }
+
+        // Caminho para a imagem padrão
+        return asset('images/default-profile.png');
+    }
 }

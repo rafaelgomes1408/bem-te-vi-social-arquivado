@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
-use Illuminate\Support\Facades\Auth; // Importação corrigida para Auth
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage; // Necessário 
 use Illuminate\Validation\ValidationException;
 
 class UsuarioController extends Controller
@@ -22,7 +23,7 @@ class UsuarioController extends Controller
 
     // Método para salvar as alterações do perfil
     public function updateSettings(Request $request)
-{
+    {
     $request->validate([
         'nomeUsuario' => 'required|string|max:50',
         'biografia' => 'nullable|string|max:250',
@@ -34,26 +35,39 @@ class UsuarioController extends Controller
     $usuario->biografia = $request->input('biografia');
 
     // Lógica para lidar com o upload da imagem
-    if ($request->hasFile('imagemPerfil') && $request->file('imagemPerfil')->isValid()) {
-        // Exclui a imagem antiga, se existir
-        if (!empty($usuario->imagemPerfil) && \Storage::exists('public/' . $usuario->imagemPerfil)) {
-            \Storage::delete('public/' . $usuario->imagemPerfil);
-        }
-
-        // Faz o upload da nova imagem
-        $path = $request->file('imagemPerfil')->store('public/profile_pictures');
-        if ($path) {
-            $usuario->imagemPerfil = str_replace('public/', '', $path); // Salva o caminho sem "public/"
+    if ($request->hasFile('imagemPerfil')) {
+        $imagemPerfil = $request->file('imagemPerfil');
+    
+        if ($imagemPerfil && $imagemPerfil->isValid()) {
+            // Exclui a imagem antiga, se existir
+            if (!empty($usuario->imagemPerfil)) {
+                Storage::disk('public')->delete($usuario->imagemPerfil);
+            }
+    
+            // Gera um nome único para o arquivo e realiza o upload
+            $filename = uniqid() . '.' . $imagemPerfil->getClientOriginalExtension();
+            $path = $imagemPerfil->storeAs('profile_pictures', $filename, 'public');
+    
+            // Verifica se o upload foi bem-sucedido
+            if (!$path) {
+                return redirect()->route('configuracoes')
+                    ->withErrors(['imagemPerfil' => 'Ocorreu um erro ao salvar a imagem.']);
+            }
+    
+            // Atualiza o caminho da imagem no usuário
+            $usuario->imagemPerfil = $path;
+            \Log::info('Imagem de perfil atualizada para o usuário: ' . $usuario->idUsuario);
         } else {
             return redirect()->route('configuracoes')
-                ->withErrors(['imagemPerfil' => 'Ocorreu um erro ao salvar a imagem.']);
+                ->withErrors(['imagemPerfil' => 'Arquivo de imagem inválido.']);
         }
     }
 
     $usuario->save();
 
     return redirect()->route('configuracoes')->with('success', 'Perfil atualizado com sucesso.');
-}
+    }
+
 
     // Método para desativar o perfil do usuário
     public function deactivateProfile(Request $request)

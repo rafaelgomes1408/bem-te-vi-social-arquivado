@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Postagem;
+use App\Models\Denuncia; // Importação do modelo de Denúncias
 use Illuminate\Support\Facades\Auth;
 
 class PostagemController extends Controller
@@ -50,30 +51,37 @@ class PostagemController extends Controller
     // Função para excluir uma postagem
     public function delete($id)
     {
-    $postagem = Postagem::findOrFail($id);
-
-    // Verifica se a postagem pertence ao usuário logado
-    if ($postagem->idUsuario !== auth()->user()->idUsuario) {
-        return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta postagem.');
-    }
-
-    $postagem->delete();
-
-    return redirect()->route('home')->with('success', 'Postagem excluída com sucesso.');
-}
-
-
-    // Função para denunciar uma postagem (por outros usuários)
-    public function denunciar($id)
-    {
         $postagem = Postagem::findOrFail($id);
 
-        // Simulação de lógica para registrar denúncia
-        // Exemplo: adicionar um campo `isOfensiva` ou registrar em outra tabela
-        $postagem->update([
-            'isOfensiva' => true,
+        // Verifica se a postagem pertence ao usuário logado
+        if ($postagem->idUsuario !== auth()->user()->idUsuario) {
+            return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta postagem.');
+        }
+
+        $postagem->delete();
+
+        return redirect()->route('home')->with('success', 'Postagem excluída com sucesso.');
+    }
+
+    // Função para denunciar uma postagem
+    public function denunciar(Request $request, $id)
+    {
+        // Valida a categoria selecionada
+        $request->validate([
+            'categoria' => 'required|string',
         ]);
 
-        return redirect()->route('feed')->with('success', 'Postagem denunciada com sucesso. Um administrador será notificado.');
+        // Busca a postagem pelo ID
+        $postagem = Postagem::findOrFail($id);
+
+        // Salva a denúncia no banco de dados
+        Denuncia::create([
+            'idPostagem' => $postagem->idPostagem,
+            'idUsuario' => Auth::user()->idUsuario, // Usuário que realizou a denúncia
+            'categoria' => $request->input('categoria'),
+        ]);
+
+        // Redireciona com uma mensagem de sucesso
+        return redirect()->back()->with('success', 'Denúncia registrada com sucesso.');
     }
 }
