@@ -157,6 +157,12 @@
                         @endif
                     </div>
                 @endforeach
+
+                <!-- Adicionando esta linha para os links de paginação -->
+                <div class="d-flex justify-content-center"> <!-- Centralizar os botões de paginação na página -->
+                    {{ $postagens->links('pagination::bootstrap-4') }}
+                </div>
+
             @endif
         </div>
     </div>

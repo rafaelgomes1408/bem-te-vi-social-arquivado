@@ -21,7 +21,8 @@ class HomeController extends Controller
         // Carregar postagens do usuário selecionado
         $postagens = Postagem::where('idUsuario', $usuario->idUsuario)
             ->orderBy('dataHora', 'desc')
-            ->get();
+            //->get();
+            ->paginate(10); //10 postagens por página
 
         // Pesquisa de outros usuários
         $usuarios = [];
