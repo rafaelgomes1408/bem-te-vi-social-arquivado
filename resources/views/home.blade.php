@@ -12,15 +12,11 @@
                     class="rounded-circle" 
                     width="50">
                 <div class="ms-3">
-                    <!-- Nome do usuário (primeiro nome) e biografia -->
-                    <h4>
-                        Seja Bem-vindo, 
-                        @if(auth()->user()->idUsuario === $usuario->idUsuario)
-                            {{ explode(' ', $usuario->nomeUsuario)[0] }}
-                        @else
-                            {{ $usuario->nomeUsuario }}
-                        @endif
-                    </h4>
+                    @if(auth()->user()->idUsuario === $usuario->idUsuario)
+                        <h4>Seja bem-vindo, {{ explode(' ', $usuario->nomeUsuario)[0] }}</h4>
+                    @else
+                        <h4>Exibindo perfil de {{ $usuario->nomeUsuario }}</h4>
+                    @endif
                     <p>{{ Str::limit($usuario->biografia ?? 'Sem biografia disponível.', 100, '...') }}</p>
                 </div>
             </div>
@@ -158,8 +154,7 @@
                     </div>
                 @endforeach
 
-                <!-- Adicionando esta linha para os links de paginação -->
-                <div class="d-flex justify-content-center"> <!-- Centralizar os botões de paginação na página -->
+                <div class="d-flex justify-content-center">
                     {{ $postagens->links('pagination::bootstrap-4') }}
                 </div>
 
