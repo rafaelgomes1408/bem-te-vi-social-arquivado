@@ -45,10 +45,57 @@
             <button type="submit" class="btn btn-success w-100">Salvar Alterações</button>
         </form>
 
-        <!-- Links de redefinição de senha e log -->
+        <!-- Links de redefinição de senha e log 
         <div class="mb-4">
             <p>Deseja redefinir sua senha? <a href="{{ route('password.request') }}" class="text-success">Clique aqui!</a></p>
         </div>
+        -->
+               <!-- Redefinição de senha -->
+                <div class="card mt-4">
+            <div class="card-header">
+                <h5>Alterar Senha</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('configuracoes.atualizar-senha') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="senha_atual" class="form-label">Senha Atual</label>
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            id="senha_atual" 
+                            name="senha_atual" 
+                            required>
+                        @error('senha_atual')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="nova_senha" class="form-label">Nova Senha</label>
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            id="nova_senha" 
+                            name="nova_senha" 
+                            required>
+                        @error('nova_senha')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="nova_senha_confirmation" class="form-label">Confirme a Nova Senha</label>
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            id="nova_senha_confirmation" 
+                            name="nova_senha_confirmation" 
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Atualizar Senha</button>
+                </form>
+            </div>
+        </div>
+
 
         <!-- Log e desativar conta -->
         <div class="d-flex justify-content-between">

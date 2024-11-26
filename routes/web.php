@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/log', [UsuarioController::class, 'viewLog'])->name('configuracoes.log');
         Route::get('/perfil/{id}/editar', [UsuarioController::class, 'editProfile'])->name('perfil.editar');
         Route::post('/perfil/{id}/editar', [UsuarioController::class, 'updateProfile'])->name('perfil.atualizar');
+        Route::post('/configuracoes/atualizar-senha', [UsuarioController::class, 'updatePassword'])->name('configuracoes.atualizar-senha');
         });
         
     });

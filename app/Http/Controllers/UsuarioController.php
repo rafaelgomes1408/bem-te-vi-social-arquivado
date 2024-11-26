@@ -130,4 +130,28 @@ class UsuarioController extends Controller
 
         return redirect()->route('perfil.editar', $usuario->idUsuario)->with('success', 'Perfil atualizado com sucesso.');
     }
+
+    // Método para trocar senha
+    public function updatePassword(Request $request)
+    {
+    $request->validate([
+        'senha_atual' => 'required',
+        'nova_senha' => 'required|min:8|confirmed',
+    ]);
+
+    $usuario = Auth::user();
+
+    // Verifica se a senha atual está correta
+    if (!Hash::check($request->input('senha_atual'), $usuario->senha)) {
+        return redirect()->route('configuracoes')
+            ->withErrors(['senha_atual' => 'A senha atual está incorreta.']);
+    }
+
+    // Atualiza a senha do usuário
+    $usuario->senha = bcrypt($request->input('nova_senha'));
+    $usuario->save();
+
+    return redirect()->route('configuracoes')->with('success', 'Senha atualizada com sucesso.');
+    }
+
 }
