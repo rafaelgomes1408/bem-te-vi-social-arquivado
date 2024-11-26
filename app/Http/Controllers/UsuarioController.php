@@ -72,12 +72,16 @@ class UsuarioController extends Controller
     // Método para desativar o perfil do usuário
     public function deactivateProfile(Request $request)
     {
-        $usuario = Auth::user();
-        $usuario->is_ativo = false; // Considerando que existe a coluna 'is_ativo' no banco
-        $usuario->save();
+    $usuario = Auth::user();
 
-        Auth::logout();
-        return redirect('/')->with('success', 'Perfil desativado com sucesso.');
+    // Marca o perfil como inativo
+    $usuario->update(['is_ativo' => false]);
+
+    // Desconecta o usuário
+    Auth::logout();
+
+    // Retorna para a página inicial com mensagem
+    return redirect('/')->with('success', 'Perfil desativado com sucesso. Você pode reativar sua conta dentro de 30 dias.');
     }
 
     // Método para exibir o formulário de edição de perfil
@@ -153,5 +157,26 @@ class UsuarioController extends Controller
 
     return redirect()->route('configuracoes')->with('success', 'Senha atualizada com sucesso.');
     }
+
+    // Visualização de logs
+    public function viewLog()
+{
+    $usuario = Auth::user();
+
+    // Simulação de logs. Substitua isso com a lógica real para obter logs do banco de dados ou de arquivos.
+    $logs = [
+        [
+            'data' => now()->format('d/m/Y H:i'),
+            'acao' => 'Login realizado com sucesso.',
+        ],
+        [
+            'data' => now()->subDay()->format('d/m/Y H:i'),
+            'acao' => 'Perfil atualizado.',
+        ],
+    ];
+
+    // Retorna a view com os logs
+    return view('usuario.log', compact('usuario', 'logs'));
+}
 
 }
