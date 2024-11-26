@@ -6,7 +6,11 @@
     <div class="header bg-success text-white p-3 rounded mb-4">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <img src="{{ asset('images/user-icon.png') }}" alt="Ícone do Usuário" class="rounded-circle" width="50">
+            <img 
+                src="{{ $usuario->getImagemPerfilUrl() }}" 
+                alt="Imagem de Perfil de {{ $usuario->nomeUsuario }}" 
+                class="rounded-circle" 
+                width="50">
                 <div class="ms-3">
                     <h4>Seja Bem-vindo, {{ explode(' ', $usuario->nomeUsuario)[0] }}</h4>
                     <p>{{ Str::limit($usuario->biografia ?? 'Sem biografia disponível.', 100, '...') }}</p>
