@@ -122,34 +122,53 @@
                             </button>
 
                             <!-- Modal de denúncia -->
-                            <div class="modal fade" id="denunciarModal-{{ $postagem->idPostagem }}" tabindex="-1" aria-labelledby="denunciarModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form action="{{ route('postagem.denunciar', $postagem->idPostagem) }}" method="POST">
-                                            @csrf
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="denunciarModalLabel">Denunciar Postagem</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Para confirmar sua denúncia, indique qual categoria a postagem se encaixa:</p>
-                                                <select name="categoria" class="form-select" required>
-                                                    <option value="" disabled selected>Selecione uma categoria</option>
-                                                    <option value="Informação Falsa">Informação Falsa</option>
-                                                    <option value="Discurso de Ódio">Discurso de Ódio</option>
-                                                    <option value="Assédio">Assédio</option>
-                                                    <option value="Fraude">Fraude</option>
-                                                    <option value="Incitação contra a vida">Incitação contra a vida</option>
-                                                </select>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-primary">Confirmar Denúncia</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+<div class="modal fade" id="denunciarModal-{{ $postagem->idPostagem }}" tabindex="-1" aria-labelledby="denunciarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('postagem.denunciar', $postagem->idPostagem) }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="denunciarModalLabel">Denunciar Postagem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Para confirmar sua denúncia, indique qual categoria a postagem se encaixa:</p>
+                    <select name="categoria" class="form-select" id="categoria-{{ $postagem->idPostagem }}" required onchange="toggleOutroInput('{{ $postagem->idPostagem }}')">
+                        <option value="" disabled selected>Selecione uma categoria</option>
+                        <option value="Informação Falsa">Informação Falsa</option>
+                        <option value="Discurso de Ódio">Discurso de Ódio</option>
+                        <option value="Assédio">Assédio</option>
+                        <option value="Fraude">Fraude</option>
+                        <option value="Incitação contra a vida">Incitação contra a vida</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+
+                    <div id="descricaoOutro-{{ $postagem->idPostagem }}" style="display: none;" class="mt-3">
+                        <label for="descricao-{{ $postagem->idPostagem }}" class="form-label">Descreva o motivo:</label>
+                        <textarea name="descricao" id="descricao-{{ $postagem->idPostagem }}" class="form-control" rows="3" maxlength="250" placeholder="Descreva o motivo da denúncia"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar Denúncia</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleOutroInput(postagemId) {
+        const categoria = document.getElementById(`categoria-${postagemId}`);
+        const outroInput = document.getElementById(`descricaoOutro-${postagemId}`);
+        if (categoria.value === 'Outro') {
+            outroInput.style.display = 'block';
+        } else {
+            outroInput.style.display = 'none';
+        }
+    }
+</script>
+
                         @endif
                     </div>
                 @endforeach

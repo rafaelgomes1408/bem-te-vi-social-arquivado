@@ -65,23 +65,42 @@ class PostagemController extends Controller
 
     // Função para denunciar uma postagem
     public function denunciar(Request $request, $id)
-    {
-        // Valida a categoria selecionada
-        $request->validate([
-            'categoria' => 'required|string',
-        ]);
+{
+    // Validação dos dados recebidos
+    $request->validate([
+        'categoria' => 'required|string',
+        'descricao' => 'nullable|string|max:250',
+    ]);
 
-        // Busca a postagem pelo ID
-        $postagem = Postagem::findOrFail($id);
+    \Log::info('Iniciando o processo de denúncia.');
 
-        // Salva a denúncia no banco de dados
+    // Obtendo os dados necessários
+    $postagem = Postagem::findOrFail($id);
+    $usuario = Auth::user();
+
+    \Log::info('Dados da denúncia recebidos:', [
+        'idPostagem' => $postagem->idPostagem,
+        'idUsuario' => $usuario->idUsuario,
+        'categoria' => $request->input('categoria'),
+        'descricao' => $request->input('descricao'),
+    ]);
+
+    try {
+        // Criando a denúncia
         Denuncia::create([
             'idPostagem' => $postagem->idPostagem,
-            'idUsuario' => Auth::user()->idUsuario, // Usuário que realizou a denúncia
+            'idUsuario' => $usuario->idUsuario,
             'categoria' => $request->input('categoria'),
+            'descricao' => $request->input('descricao'),
         ]);
 
-        // Redireciona com uma mensagem de sucesso
+        \Log::info('Denúncia registrada com sucesso.');
+
         return redirect()->back()->with('success', 'Denúncia registrada com sucesso.');
+    } catch (\Exception $e) {
+        \Log::error('Erro ao registrar a denúncia:', ['error' => $e->getMessage()]);
+        return redirect()->back()->withErrors(['message' => 'Ocorreu um erro ao registrar sua denúncia. Tente novamente mais tarde.']);
     }
+}
+
 }
