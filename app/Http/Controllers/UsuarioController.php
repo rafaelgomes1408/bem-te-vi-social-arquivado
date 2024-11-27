@@ -20,27 +20,21 @@ class UsuarioController extends Controller
     // Método para registrar o usuário
     public function register(Request $request)
     {
-        // Validação dos dados de cadastro
         $request->validate([
             'nomeCompleto' => 'required|string|max:255',
             'email' => 'required|email|unique:usuarios,email',
             'password' => 'required|confirmed|min:8',
         ]);
 
-        // Armazena os dados na sessão temporariamente
         $request->session()->put('cadastro_temp', $request->only('nomeCompleto', 'email', 'password'));
-
-        // Redireciona para a página dos Termos de Uso
         return redirect()->route('termos');
     }
 
-    // Método para exibir a página de Termos de Uso
     public function mostrarTermos()
     {
         return view('auth.termos');
     }
 
-    // Método para concluir o cadastro após aceitar os Termos de Uso
     public function concluirCadastro(Request $request)
     {
         if ($request->input('concordo') !== 'sim') {
@@ -49,26 +43,23 @@ class UsuarioController extends Controller
         }
 
         $dados = $request->session()->get('cadastro_temp');
-
         Usuario::create([
             'nomeUsuario' => $dados['nomeCompleto'],
             'email' => $dados['email'],
             'senha' => bcrypt($dados['password']),
+            'is_ativo' => true,
         ]);
 
         $request->session()->forget('cadastro_temp');
-
         return redirect()->route('login')->with('success', 'Cadastro concluído com sucesso! Faça login para acessar sua conta.');
     }
 
-    // Método para exibir a página de configurações do usuário
     public function showSettings()
     {
         $usuario = Auth::user();
         return view('usuario.configuracoes', compact('usuario'));
     }
 
-    // Método para salvar as alterações do perfil
     public function updateSettings(Request $request)
     {
         $request->validate([
@@ -83,19 +74,15 @@ class UsuarioController extends Controller
 
         if ($request->hasFile('imagemPerfil')) {
             $imagemPerfil = $request->file('imagemPerfil');
-
             if ($imagemPerfil && $imagemPerfil->isValid()) {
                 if (!empty($usuario->imagemPerfil)) {
                     Storage::disk('public')->delete($usuario->imagemPerfil);
                 }
-
                 $filename = uniqid() . '.' . $imagemPerfil->getClientOriginalExtension();
                 $path = $imagemPerfil->storeAs('profile_pictures', $filename, 'public');
-
                 if (!$path) {
                     return redirect()->route('configuracoes')->withErrors(['imagemPerfil' => 'Ocorreu um erro ao salvar a imagem.']);
                 }
-
                 $usuario->imagemPerfil = $path;
             } else {
                 return redirect()->route('configuracoes')->withErrors(['imagemPerfil' => 'Arquivo de imagem inválido.']);
@@ -103,11 +90,9 @@ class UsuarioController extends Controller
         }
 
         $usuario->save();
-
         return redirect()->route('configuracoes')->with('success', 'Perfil atualizado com sucesso.');
     }
 
-    // Método para desativar o perfil do usuário
     public function deactivateProfile(Request $request)
     {
         $usuario = Auth::user();
@@ -116,19 +101,15 @@ class UsuarioController extends Controller
         return redirect('/')->with('success', 'Perfil desativado com sucesso. Você pode reativar sua conta dentro de 30 dias.');
     }
 
-    // Método para editar o perfil
     public function editProfile($id)
     {
         $usuario = Usuario::findOrFail($id);
-
         if (Auth::user()->idUsuario !== $usuario->idUsuario) {
             return redirect()->route('home')->with('error', 'Você não tem permissão para editar este perfil.');
         }
-
         return view('usuario.editar', compact('usuario'));
     }
 
-    // Método para trocar senha
     public function updatePassword(Request $request)
     {
         $request->validate([
@@ -137,27 +118,50 @@ class UsuarioController extends Controller
         ]);
 
         $usuario = Auth::user();
-
         if (!Hash::check($request->input('senha_atual'), $usuario->senha)) {
             return redirect()->route('configuracoes')->withErrors(['senha_atual' => 'A senha atual está incorreta.']);
         }
 
         $usuario->senha = bcrypt($request->input('nova_senha'));
         $usuario->save();
-
         return redirect()->route('configuracoes')->with('success', 'Senha atualizada com sucesso.');
     }
 
-    // Método para exibir o log de atividades
     public function viewLog()
     {
         $usuario = Auth::user();
-
         $logs = [
             ['data' => now()->format('d/m/Y H:i'), 'acao' => 'Login realizado com sucesso.'],
             ['data' => now()->subDay()->format('d/m/Y H:i'), 'acao' => 'Perfil atualizado.'],
         ];
-
         return view('usuario.log', compact('usuario', 'logs'));
+    }
+
+    public function showReactivationForm(Request $request)
+    {
+        $userId = $request->session()->get('user_id_to_reactivate');
+        if (!$userId) {
+            return redirect()->route('login')->withErrors(['message' => 'Nenhuma conta para reativar.']);
+        }
+        return view('auth.reativar_conta');
+    }
+
+    public function reactivateAccount(Request $request)
+    {
+        $userId = $request->session()->get('user_id_to_reactivate');
+        if (!$userId) {
+            return redirect()->route('login')->withErrors(['message' => 'Nenhuma conta para reativar.']);
+        }
+
+        $usuario = Usuario::find($userId);
+        if ($usuario) {
+            $usuario->is_ativo = true;
+            $usuario->save();
+            $request->session()->forget('user_id_to_reactivate');
+            Auth::login($usuario);
+            return redirect()->route('home')->with('success', 'Conta reativada com sucesso!');
+        } else {
+            return redirect()->route('login')->withErrors(['message' => 'Usuário não encontrado.']);
+        }
     }
 }

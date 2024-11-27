@@ -84,11 +84,20 @@ class Usuario extends Authenticatable
      */
     public function getImagemPerfilUrl(): string
     {
-        if ($this->imagemPerfil) {
+        if ($this->imagemPerfil && file_exists(storage_path('app/public/' . $this->imagemPerfil))) {
             return asset('storage/' . $this->imagemPerfil);
         }
 
         // Caminho para a imagem padrão
         return asset('images/default-profile.png');
+    }
+
+    /**
+     * Define se o perfil está ativo ou inativo
+     */
+    public function deactivate()
+    {
+        $this->is_ativo = false;
+        $this->save();
     }
 }

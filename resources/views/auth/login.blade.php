@@ -30,8 +30,8 @@
 
                     <!-- Campo de Senha -->
                     <div class="form-group mb-4">
-                        <label for="senha">Senha</label>
-                        <input type="password" class="form-control" id="senha" name="password" required>
+                        <label for="password">Senha</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
 
                     <!-- Botão Entrar -->

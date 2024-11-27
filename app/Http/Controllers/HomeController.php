@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Postagem;
-use App\Models\Usuario; // Certifique-se de que o modelo Usuario está corretamente importado
+use App\Models\Usuario;
 
 class HomeController extends Controller
 {
@@ -15,19 +15,20 @@ class HomeController extends Controller
     {
         // Determinar qual usuário exibir (próprio ou outro)
         $usuario = $request->has('user_id') 
-            ? Usuario::findOrFail($request->user_id) 
+            ? Usuario::where('is_ativo', true)->findOrFail($request->user_id) 
             : auth()->user();
 
         // Carregar postagens do usuário selecionado
         $postagens = Postagem::where('idUsuario', $usuario->idUsuario)
             ->orderBy('dataHora', 'desc')
-            //->get();
-            ->paginate(10); //10 postagens por página
+            ->paginate(10); // Paginação de 10 postagens por página
 
-        // Pesquisa de outros usuários
+        // Pesquisa de outros usuários (apenas usuários ativos)
         $usuarios = [];
         if ($request->has('search')) {
-            $usuarios = Usuario::where('nomeUsuario', 'LIKE', '%' . $request->search . '%')->get();
+            $usuarios = Usuario::where('is_ativo', true)
+                ->where('nomeUsuario', 'LIKE', '%' . $request->search . '%')
+                ->get();
         }
 
         // Retorna a view com os dados do usuário, postagens e resultados da pesquisa
