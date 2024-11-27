@@ -11,12 +11,14 @@ class Denuncia extends Model
 
     protected $table = 'denuncias';
 
+    // Campos que podem ser preenchidos em massa
     protected $fillable = [
         'idPostagem',
         'idUsuario',
         'categoria',
+        'descricao', // Incluído para permitir atribuição de descrição
     ];
 
     public $incrementing = true; // A chave primária é do tipo integer (auto-increment)
-    protected $keyType = 'int';
+    protected $keyType = 'int'; // Tipo da chave primária
 }
