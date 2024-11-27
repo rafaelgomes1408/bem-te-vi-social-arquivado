@@ -19,7 +19,7 @@ class Usuario extends Authenticatable
     protected $primaryKey = 'idUsuario';
 
     // Os campos que podem ser preenchidos em massa
-    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil', 'is_ativo'];
+    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil'];
 
     // Campos ocultos nas respostas JSON
     protected $hidden = ['senha', 'remember_token'];
@@ -72,14 +72,6 @@ class Usuario extends Authenticatable
     }
 
     /**
-     * Verifica se o usuário está ativo
-     */
-    public function isAtivo(): bool
-    {
-        return $this->is_ativo;
-    }
-
-    /**
      * Retorna a URL da imagem de perfil ou a imagem padrão
      */
     public function getImagemPerfilUrl(): string
@@ -93,11 +85,19 @@ class Usuario extends Authenticatable
     }
 
     /**
-     * Define se o perfil está ativo ou inativo
+     * Exclui o perfil do usuário e todos os dados relacionados
      */
-    public function deactivate()
+    public function deleteAccount()
     {
-        $this->is_ativo = false;
-        $this->save();
+        // Exclui as postagens do usuário
+        $this->postagens()->delete();
+
+        // Exclui a imagem de perfil se existir
+        if ($this->imagemPerfil && file_exists(storage_path('app/public/' . $this->imagemPerfil))) {
+            \Storage::disk('public')->delete($this->imagemPerfil);
+        }
+
+        // Exclui o próprio usuário
+        $this->delete();
     }
 }

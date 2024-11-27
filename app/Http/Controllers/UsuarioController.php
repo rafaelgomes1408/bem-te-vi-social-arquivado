@@ -95,10 +95,17 @@ class UsuarioController extends Controller
 
     public function deactivateProfile(Request $request)
     {
-        $usuario = Auth::user();
-        $usuario->update(['is_ativo' => false]);
-        Auth::logout();
-        return redirect('/')->with('success', 'Perfil desativado com sucesso. Você pode reativar sua conta dentro de 30 dias.');
+    $usuario = Auth::user();
+
+    // Exclui o usuário e todas as suas postagens relacionadas
+    $usuario->postagens()->delete(); // Exclui as postagens do usuário
+    $usuario->delete(); // Exclui o próprio usuário
+
+    // Desconecta o usuário
+    Auth::logout();
+
+    // Retorna para a página inicial com uma mensagem de sucesso
+    return redirect('/')->with('success', 'Conta excluída com sucesso.');
     }
 
     public function editProfile($id)
