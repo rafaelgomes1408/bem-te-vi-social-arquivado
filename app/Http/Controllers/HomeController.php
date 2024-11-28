@@ -21,7 +21,8 @@ class HomeController extends Controller
         // Carregar postagens do usuário selecionado
         $postagens = Postagem::where('idUsuario', $usuario->idUsuario)
             ->orderBy('dataHora', 'desc')
-            ->paginate(10); // Paginação de 10 postagens por página
+            ->paginate(10) // Paginação de 10 postagens por página
+            ->appends($request->only('user_id', 'search')); // Preservar os parâmetros na paginação
 
         // Pesquisa de outros usuários (apenas usuários ativos)
         $usuarios = [];
