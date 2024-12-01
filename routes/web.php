@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 
 // Rotas públicas
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -46,4 +47,15 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}/deletar', [PostagemController::class, 'delete'])->name('postagem.deletar');
         Route::post('/{id}/denunciar', [PostagemController::class, 'denunciar'])->name('postagem.denunciar');
     });
+});
+
+// Rotas para administradores
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/denuncias', [AdminController::class, 'listarDenuncias'])->name('admin.denuncias');
+    Route::post('/postagem/{id}/excluir', [AdminController::class, 'excluirPostagem'])->name('admin.excluirPostagem');
+    Route::get('/usuarios', [AdminController::class, 'listarUsuarios'])->name('admin.usuarios');
+    Route::post('/usuario/{id}/bloquear', [AdminController::class, 'bloquearUsuario'])->name('admin.bloquearUsuario');
+    Route::post('/usuario/{id}/desbloquear', [AdminController::class, 'desbloquearUsuario'])->name('admin.desbloquearUsuario');
+    Route::post('/administrador/adicionar', [AdminController::class, 'adicionarAdministrador'])->name('admin.adicionarAdministrador');
 });
