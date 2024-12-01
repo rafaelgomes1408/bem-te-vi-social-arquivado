@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Atualização da tabela 'usuarios' para incluir a coluna 'is_admin'
         Schema::create('usuarios', function (Blueprint $table) {
             $table->uuid('idUsuario')->primary(); // Usando UUID como chave primária
             $table->string('nomeUsuario');
             $table->string('email')->unique();
             $table->string('senha');
             $table->uuid('idPerfil')->nullable()->constrained('perfils'); // Chave estrangeira para a tabela 'perfils'
+            $table->boolean('is_admin')->default(false); // Define se o usuário é administrador
             $table->rememberToken();
             $table->timestamps();
         });
@@ -31,7 +33,6 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-
 
         // Criação da tabela para armazenamento dos tokens de redefinição de password
         Schema::create('password_reset_tokens', function (Blueprint $table) {
