@@ -19,7 +19,7 @@ class Usuario extends Authenticatable
     protected $primaryKey = 'idUsuario';
 
     // Os campos que podem ser preenchidos em massa
-    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil'];
+    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil', 'is_admin'];
 
     // Campos ocultos nas respostas JSON
     protected $hidden = ['senha', 'remember_token'];
@@ -99,5 +99,13 @@ class Usuario extends Authenticatable
 
         // Exclui o próprio usuário
         $this->delete();
+    }
+
+    /**
+     * Verifica se o usuário é administrador
+     */
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
     }
 }
