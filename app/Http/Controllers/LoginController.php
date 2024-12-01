@@ -29,12 +29,16 @@ class LoginController extends Controller
             // Regenerar a sessão para evitar ataques de sessão fixa
             $request->session()->regenerate();
 
-            // Redireciona o usuário para a página inicial ou uma página protegida
-            return redirect()->intended('home');
-        } else {
-            // Mensagem de log para falha no login
-            \Log::error('Falha de login para o usuário: ' . $request->input('email'));
+            // Redireciona o usuário com base no tipo de conta
+            if (Auth::user()->is_admin) {
+                return redirect()->route('admin.dashboard');
+            }
+
+            return redirect()->route('home');
         }
+
+        // Mensagem de log para falha no login
+        \Log::error('Falha de login para o usuário: ' . $request->input('email'));
 
         // Se o login falhar, redireciona de volta para a página de login com erro
         return back()->withErrors([
@@ -42,19 +46,19 @@ class LoginController extends Controller
         ])->onlyInput('email');
     }
 
-        // Método para realizar logout
-        public function logout(Request $request)
-        {
-            // Desloga o usuário autenticado
-            Auth::logout();
+    // Método para realizar logout
+    public function logout(Request $request)
+    {
+        // Desloga o usuário autenticado
+        Auth::logout();
 
-            // Invalida a sessão do usuário
-            $request->session()->invalidate();
+        // Invalida a sessão do usuário
+        $request->session()->invalidate();
 
-            // Regenera o token de sessão para evitar ataques de sessão fixa
-            $request->session()->regenerateToken();
+        // Regenera o token de sessão para evitar ataques de sessão fixa
+        $request->session()->regenerateToken();
 
-            // Redireciona o usuário para a página de login
-            return redirect()->route('login')->with('success', 'Você foi desconectado com sucesso.');
+        // Redireciona o usuário para a página de login
+        return redirect()->route('login')->with('success', 'Você foi desconectado com sucesso.');
     }
 }
