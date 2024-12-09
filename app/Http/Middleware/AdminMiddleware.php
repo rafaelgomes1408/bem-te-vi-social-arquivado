@@ -22,7 +22,7 @@ class AdminMiddleware
         'is_admin' => Auth::user()->is_admin ?? null,
     ]);
 
-    return redirect('/')->withErrors('Acesso negado: apenas administradores podem acessar.');
+    return redirect('/home')->withErrors('Acesso negado: apenas administradores podem acessar.');
 }
 }
 

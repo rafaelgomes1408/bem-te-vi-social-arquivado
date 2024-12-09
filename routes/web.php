@@ -21,6 +21,10 @@ Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkE
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
+Route::get('/admin/dashboard', function () {
+    return 'Página do administrador';
+})->middleware(['auth', 'admin']);
+
 // Rotas protegidas
 Route::middleware(['auth'])->group(function () {
     // Página inicial
@@ -51,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Rotas para administradores
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    //Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/denuncias', [AdminController::class, 'listarDenuncias'])->name('admin.denuncias');
     Route::post('/postagem/{id}/excluir', [AdminController::class, 'excluirPostagem'])->name('admin.excluirPostagem');

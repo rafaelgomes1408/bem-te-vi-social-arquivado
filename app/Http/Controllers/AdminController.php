@@ -10,7 +10,8 @@ use App\Models\Denuncia;
 class AdminController extends Controller
 {
     public function dashboard()
-    {
+    {   
+        dd('Cheguei no dashboard');
         return view('admin.dashboard');
     }
 
