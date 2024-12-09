@@ -6,7 +6,7 @@
 @if ($level === 'error')
 # @lang('Opa!')
 @else
-@lang('password_reset_greeting')
+@lang('notifications.password_reset_greeting')
 @endif
 @endif
 
@@ -25,7 +25,7 @@
     };
 ?>
 <x-mail::button :url="$actionUrl" :color="$color">
-@lang('password_reset_action')
+@lang('notifications.password_reset_action')
 </x-mail::button>
 @endisset
 
@@ -39,7 +39,7 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('password_reset_salutation')<br>
+@lang('notifications.password_reset_salutation')<br>
 {{ config('app.name') }}
 @endif
 
