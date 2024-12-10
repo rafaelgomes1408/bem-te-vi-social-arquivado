@@ -11,10 +11,7 @@
 @endif
 
 {{-- Linhas de Introdução --}}
-@foreach ($introLines as $line)
-{{ $line }}
-
-@endforeach
+@lang('notifications.password_reset_intro')
 
 {{-- Botão de Ação --}}
 @isset($actionText)
@@ -30,10 +27,8 @@
 @endisset
 
 {{-- Linhas de Fechamento --}}
-@foreach ($outroLines as $line)
-{{ $line }}
-
-@endforeach
+@lang('notifications.password_reset_expiration')<br>
+@lang('notifications.password_reset_no_action')
 
 {{-- Saudação Final --}}
 @if (! empty($salutation))
