@@ -55,8 +55,8 @@ Route::middleware(['auth'])->group(function () {
 
 // Rotas para administradores
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    //Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    //Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/denuncias', [AdminController::class, 'listarDenuncias'])->name('admin.denuncias');
     Route::post('/postagem/{id}/excluir', [AdminController::class, 'excluirPostagem'])->name('admin.excluirPostagem');
     Route::get('/usuarios', [AdminController::class, 'listarUsuarios'])->name('admin.usuarios');
@@ -64,3 +64,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/usuario/{id}/desbloquear', [AdminController::class, 'desbloquearUsuario'])->name('admin.desbloquearUsuario');
     Route::post('/administrador/adicionar', [AdminController::class, 'adicionarAdministrador'])->name('admin.adicionarAdministrador');
 });
+
+//Teste
+Route::get('/admin/teste', function () {
+    return 'Middleware de administrador funcionando!';
+})->middleware(['auth', 'admin']);
+
