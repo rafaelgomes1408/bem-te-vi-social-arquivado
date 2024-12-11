@@ -19,7 +19,7 @@ class Usuario extends Authenticatable
     protected $primaryKey = 'idUsuario';
 
     // Os campos que podem ser preenchidos em massa
-    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil', 'is_admin'];
+    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil', 'is_admin', 'is_ativo'];
 
     // Campos ocultos nas respostas JSON
     protected $hidden = ['senha', 'remember_token'];
@@ -60,7 +60,11 @@ class Usuario extends Authenticatable
      */
     public function setPasswordAttribute($value)
     {
-        $this->attributes['senha'] = bcrypt($value);
+        if (\Illuminate\Support\Facades\Hash::needsRehash($value)) {
+            $this->attributes['senha'] = bcrypt($value);
+        } else {
+            $this->attributes['senha'] = $value;
+        }
     }
 
     /**
@@ -69,6 +73,14 @@ class Usuario extends Authenticatable
     public function postagens(): HasMany
     {
         return $this->hasMany(Postagem::class, 'idUsuario', 'idUsuario');
+    }
+
+    /**
+     * Relacionamento: Um administrador pode gerenciar várias denúncias.
+     */
+    public function denuncias(): HasMany
+    {
+        return $this->hasMany(Denuncia::class, 'idUsuario', 'idUsuario');
     }
 
     /**
@@ -106,6 +118,30 @@ class Usuario extends Authenticatable
      */
     public function isAdmin(): bool
     {
-        return $this->is_admin;
+        return $this->is_admin == 1; // Compara como inteiro
+    }
+
+    /**
+     * Verifica se o usuário está ativo
+     */
+    public function isActive(): bool
+    {
+        return $this->is_ativo == 1; // Compara como inteiro
+    }
+
+    /**
+     * Torna o usuário um administrador
+     */
+    public function makeAdmin()
+    {
+        $this->update(['is_admin' => 1]);
+    }
+
+    /**
+     * Remove privilégios de administrador
+     */
+    public function removeAdmin()
+    {
+        $this->update(['is_admin' => 0]);
     }
 }
