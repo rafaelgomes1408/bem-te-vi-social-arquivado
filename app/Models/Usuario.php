@@ -19,7 +19,7 @@ class Usuario extends Authenticatable
     protected $primaryKey = 'idUsuario';
 
     // Os campos que podem ser preenchidos em massa
-    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil', 'is_admin', 'is_ativo'];
+    protected $fillable = ['nomeUsuario', 'email', 'senha', 'idPerfil', 'imagemPerfil', 'is_ativo'];
 
     // Campos ocultos nas respostas JSON
     protected $hidden = ['senha', 'remember_token'];
@@ -113,15 +113,7 @@ class Usuario extends Authenticatable
         $this->delete();
     }
 
-    /**
-     * Verifica se o usuário é administrador
-     */
-    public function isAdmin(): bool
-    {
-        return $this->is_admin == 1; // Compara como inteiro
-    }
-
-    /**
+        /**
      * Verifica se o usuário está ativo
      */
     public function isActive(): bool
@@ -129,19 +121,4 @@ class Usuario extends Authenticatable
         return $this->is_ativo == 1; // Compara como inteiro
     }
 
-    /**
-     * Torna o usuário um administrador
-     */
-    public function makeAdmin()
-    {
-        $this->update(['is_admin' => 1]);
-    }
-
-    /**
-     * Remove privilégios de administrador
-     */
-    public function removeAdmin()
-    {
-        $this->update(['is_admin' => 0]);
-    }
 }
