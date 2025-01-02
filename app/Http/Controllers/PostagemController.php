@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Postagem;
-use App\Models\Denuncia; // Importação do modelo de Denúncias
+use App\Models\Denuncia;
 use Illuminate\Support\Facades\Auth;
 
 class PostagemController extends Controller
@@ -13,7 +13,7 @@ class PostagemController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'conteudo' => 'required|max:250', // Limite de 250 caracteres
+            'conteudo' => 'required|max:250',
         ]);
 
         // Análise do conteúdo usando o script Python
@@ -29,7 +29,7 @@ class PostagemController extends Controller
         Postagem::create([
             'conteudo' => $request->input('conteudo'),
             'dataHora' => now(),
-            'idUsuario' => Auth::user()->idUsuario, // Relaciona a postagem com o usuário logado
+            'idUsuario' => Auth::user()->idUsuario,
         ]);
 
         return redirect()->route('home')->with('success', 'Postagem criada com sucesso.');
@@ -39,12 +39,11 @@ class PostagemController extends Controller
     public function edit(Request $request, $id)
     {
         $request->validate([
-            'conteudo' => 'required|max:250', // Validação para edição
+            'conteudo' => 'required|max:250',
         ]);
 
         $postagem = Postagem::findOrFail($id);
 
-        // Verifica se a postagem pertence ao usuário logado
         if ($postagem->idUsuario !== Auth::user()->idUsuario) {
             return redirect()->route('feed')->with('error', 'Você não tem permissão para editar esta postagem.');
         }
@@ -71,7 +70,6 @@ class PostagemController extends Controller
     {
         $postagem = Postagem::findOrFail($id);
 
-        // Verifica se a postagem pertence ao usuário logado
         if ($postagem->idUsuario !== auth()->user()->idUsuario) {
             return redirect()->route('home')->with('error', 'Você não tem permissão para excluir esta postagem.');
         }
