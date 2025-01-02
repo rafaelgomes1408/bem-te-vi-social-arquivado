@@ -47,6 +47,3 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{id}/denunciar', [PostagemController::class, 'denunciar'])->name('postagem.denunciar');
     });
 });
-
-
-
