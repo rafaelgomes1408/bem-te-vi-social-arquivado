@@ -16,6 +16,15 @@ class PostagemController extends Controller
             'conteudo' => 'required|max:250', // Limite de 250 caracteres
         ]);
 
+        // Análise do conteúdo usando o script Python
+        $resultadoAnalise = $this->analisarTexto($request->input('conteudo'));
+
+        if ($resultadoAnalise['status'] === 'alert') {
+            return redirect()->back()->withErrors([
+                'message' => 'Sua postagem contém conteúdo que pode violar as regras da comunidade.',
+            ]);
+        }
+
         // Criação da postagem
         Postagem::create([
             'conteudo' => $request->input('conteudo'),
@@ -38,6 +47,15 @@ class PostagemController extends Controller
         // Verifica se a postagem pertence ao usuário logado
         if ($postagem->idUsuario !== Auth::user()->idUsuario) {
             return redirect()->route('feed')->with('error', 'Você não tem permissão para editar esta postagem.');
+        }
+
+        // Análise do conteúdo usando o script Python
+        $resultadoAnalise = $this->analisarTexto($request->input('conteudo'));
+
+        if ($resultadoAnalise['status'] === 'alert') {
+            return redirect()->back()->withErrors([
+                'message' => 'Sua postagem contém conteúdo que pode violar as regras da comunidade.',
+            ]);
         }
 
         // Atualização do conteúdo da postagem
@@ -65,42 +83,60 @@ class PostagemController extends Controller
 
     // Função para denunciar uma postagem
     public function denunciar(Request $request, $id)
-{
-    // Validação dos dados recebidos
-    $request->validate([
-        'categoria' => 'required|string',
-        'descricao' => 'nullable|string|max:250',
-    ]);
+    {
+        $request->validate([
+            'categoria' => 'required|string',
+            'descricao' => 'nullable|string|max:250',
+        ]);
 
-    \Log::info('Iniciando o processo de denúncia.');
+        \Log::info('Iniciando o processo de denúncia.');
 
-    // Obtendo os dados necessários
-    $postagem = Postagem::findOrFail($id);
-    $usuario = Auth::user();
+        $postagem = Postagem::findOrFail($id);
+        $usuario = Auth::user();
 
-    \Log::info('Dados da denúncia recebidos:', [
-        'idPostagem' => $postagem->idPostagem,
-        'idUsuario' => $usuario->idUsuario,
-        'categoria' => $request->input('categoria'),
-        'descricao' => $request->input('descricao'),
-    ]);
-
-    try {
-        // Criando a denúncia
-        Denuncia::create([
+        \Log::info('Dados da denúncia recebidos:', [
             'idPostagem' => $postagem->idPostagem,
             'idUsuario' => $usuario->idUsuario,
             'categoria' => $request->input('categoria'),
             'descricao' => $request->input('descricao'),
         ]);
 
-        \Log::info('Denúncia registrada com sucesso.');
+        try {
+            Denuncia::create([
+                'idPostagem' => $postagem->idPostagem,
+                'idUsuario' => $usuario->idUsuario,
+                'categoria' => $request->input('categoria'),
+                'descricao' => $request->input('descricao'),
+            ]);
 
-        return redirect()->back()->with('success', 'Denúncia registrada com sucesso.');
-    } catch (\Exception $e) {
-        \Log::error('Erro ao registrar a denúncia:', ['error' => $e->getMessage()]);
-        return redirect()->back()->withErrors(['message' => 'Ocorreu um erro ao registrar sua denúncia. Tente novamente mais tarde.']);
+            \Log::info('Denúncia registrada com sucesso.');
+
+            return redirect()->back()->with('success', 'Denúncia registrada com sucesso.');
+        } catch (\Exception $e) {
+            \Log::error('Erro ao registrar a denúncia:', ['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['message' => 'Ocorreu um erro ao registrar sua denúncia. Tente novamente mais tarde.']);
+        }
     }
-}
 
+    // Função para analisar o texto da postagem
+    private function analisarTexto(string $conteudo): array
+    {
+        $pythonPath = 'C:\\Users\\rafae\\AppData\\Local\\Programs\\Python\\Python311\\python.exe';
+        $scriptPath = 'C:\\Ambiente Virtual Python\\analyze.py';
+
+        $command = escapeshellcmd("$pythonPath $scriptPath \"$conteudo\"");
+
+        $output = shell_exec($command);
+
+        $result = json_decode($output, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return [
+                'status' => 'error',
+                'message' => 'Erro ao analisar o texto.',
+            ];
+        }
+
+        return $result;
+    }
 }
