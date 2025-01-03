@@ -11,29 +11,41 @@ class PostagemController extends Controller
 {
     // Função para criar uma nova postagem
     public function create(Request $request)
-    {
-        $request->validate([
-            'conteudo' => 'required|max:250',
-        ]);
+{
+    \Log::info('Iniciando criação da postagem.', ['usuario' => Auth::user()->email]);
 
-        // Análise do conteúdo usando o script Python
-        $resultadoAnalise = $this->analisarTexto($request->input('conteudo'));
+    $request->validate([
+        'conteudo' => 'required|max:250',
+    ]);
 
-        if ($resultadoAnalise['status'] === 'alert') {
-            return redirect()->back()->withErrors([
-                'message' => 'Sua postagem contém conteúdo que pode violar as regras da comunidade.',
-            ]);
-        }
+    \Log::info('Conteúdo recebido para análise.', ['conteudo' => $request->input('conteudo')]);
 
-        // Criação da postagem
-        Postagem::create([
+    // Análise do conteúdo usando o script Python
+    $resultadoAnalise = $this->analisarTexto($request->input('conteudo'));
+
+    \Log::info('Resultado da análise do texto.', ['resultado' => $resultadoAnalise]);
+
+    if ($resultadoAnalise['status'] === 'alert') {
+        \Log::warning('Postagem bloqueada por violar regras.', [
             'conteudo' => $request->input('conteudo'),
-            'dataHora' => now(),
-            'idUsuario' => Auth::user()->idUsuario,
+            'motivo' => $resultadoAnalise['message'],
         ]);
-
-        return redirect()->route('home')->with('success', 'Postagem criada com sucesso.');
+        return redirect()->back()->withErrors([
+            'message' => 'Sua postagem contém conteúdo que pode violar as regras da comunidade.',
+        ]);
     }
+
+    // Criação da postagem
+    Postagem::create([
+        'conteudo' => $request->input('conteudo'),
+        'dataHora' => now(),
+        'idUsuario' => Auth::user()->idUsuario,
+    ]);
+
+    \Log::info('Postagem criada com sucesso.');
+
+    return redirect()->route('home')->with('success', 'Postagem criada com sucesso.');
+}
 
     // Função para editar uma postagem existente
     public function edit(Request $request, $id)
