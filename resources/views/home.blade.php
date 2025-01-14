@@ -2,6 +2,21 @@
 
 @section('content')
 <div class="container">
+    <!-- Mensagens de erro e sucesso -->
+    @if ($errors->has('custom_error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $errors->first('custom_error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <!-- Cabeçalho -->
     <div class="header bg-success text-white p-3 rounded mb-4">
         <div class="d-flex justify-content-between align-items-center">
@@ -71,7 +86,6 @@
 
     <!-- Feed -->
     <div class="feed">
-        <!-- Área de criação de postagens (apenas para o usuário logado) -->
         @if(auth()->user()->idUsuario === $usuario->idUsuario)
             <div class="mb-3">
                 <form action="{{ route('postagem.criar') }}" method="POST">
@@ -88,7 +102,6 @@
             </div>
         @endif
 
-        <!-- Lista de postagens -->
         <div class="posts">
             @if($postagens->isEmpty())
                 <p class="text-muted text-center">
@@ -106,7 +119,6 @@
                             Publicado em {{ $postagem->dataHora->format('d/m/Y H:i') }}
                         </small>
 
-                        <!-- Botão de excluir (apenas para o usuário logado que criou a postagem) -->
                         @if($postagem->idUsuario === auth()->user()->idUsuario)
                             <form action="{{ route('postagem.deletar', $postagem->idPostagem) }}" method="POST" class="mt-2">
                                 @csrf
@@ -116,59 +128,9 @@
                                 </button>
                             </form>
                         @else
-                            <!-- Botão de denúncia (apenas para postagens de outros usuários) -->
                             <button class="btn btn-warning btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#denunciarModal-{{ $postagem->idPostagem }}">
                                 Denunciar
                             </button>
-
-                            <!-- Modal de denúncia -->
-<div class="modal fade" id="denunciarModal-{{ $postagem->idPostagem }}" tabindex="-1" aria-labelledby="denunciarModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ route('postagem.denunciar', $postagem->idPostagem) }}" method="POST">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="denunciarModalLabel">Denunciar Postagem</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Para confirmar sua denúncia, indique qual categoria a postagem se encaixa:</p>
-                    <select name="categoria" class="form-select" id="categoria-{{ $postagem->idPostagem }}" required onchange="toggleOutroInput('{{ $postagem->idPostagem }}')">
-                        <option value="" disabled selected>Selecione uma categoria</option>
-                        <option value="Informação Falsa">Informação Falsa</option>
-                        <option value="Discurso de Ódio">Discurso de Ódio</option>
-                        <option value="Assédio">Assédio</option>
-                        <option value="Fraude">Fraude</option>
-                        <option value="Incitação contra a vida">Incitação contra a vida</option>
-                        <option value="Outro">Outro</option>
-                    </select>
-
-                    <div id="descricaoOutro-{{ $postagem->idPostagem }}" style="display: none;" class="mt-3">
-                        <label for="descricao-{{ $postagem->idPostagem }}" class="form-label">Descreva o motivo:</label>
-                        <textarea name="descricao" id="descricao-{{ $postagem->idPostagem }}" class="form-control" rows="3" maxlength="250" placeholder="Descreva o motivo da denúncia"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Confirmar Denúncia</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    function toggleOutroInput(postagemId) {
-        const categoria = document.getElementById(`categoria-${postagemId}`);
-        const outroInput = document.getElementById(`descricaoOutro-${postagemId}`);
-        if (categoria.value === 'Outro') {
-            outroInput.style.display = 'block';
-        } else {
-            outroInput.style.display = 'none';
-        }
-    }
-</script>
-
                         @endif
                     </div>
                 @endforeach
@@ -176,7 +138,6 @@
                 <div class="d-flex justify-content-center">
                     {{ $postagens->links('pagination::bootstrap-4') }}
                 </div>
-
             @endif
         </div>
     </div>

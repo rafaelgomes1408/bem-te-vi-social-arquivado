@@ -4,6 +4,14 @@
 <div class="container">
     <h1>Criar Postagem</h1>
 
+    <!-- Exibir mensagens de erro -->
+    @if ($errors->has('custom_error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ $errors->first('custom_error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <!-- Formulário para criar uma nova postagem -->
     <form action="{{ route('postagem.criar') }}" method="POST">
         @csrf
