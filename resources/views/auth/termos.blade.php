@@ -13,94 +13,109 @@
                     class="mb-4" 
                     style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 15px;"
                 >
-                    <p><strong>TERMOS DE USO - REDE SOCIAL Bem-te-vi</strong></p>
-                    <p>
-                        Bem-vindo(a) à rede social <strong>Bem-te-vi</strong>.  
-                        A seguir, apresentamos os Termos de Uso (“Termos”) que regem o acesso e a utilização de nossos serviços.  
-                        Ao utilizar a Plataforma, você (“Usuário”) declara ter lido e concordado com todas as disposições aqui descritas.
-                    </p>
+                <h3><strong>TERMOS DE USO - REDE SOCIAL BEM-TE-VI</strong></h3>
+    <p>
+        Bem-vindo(a) à rede social <strong>Bem-te-vi</strong>. A seguir, apresentamos os Termos de Uso que
+        regem o acesso e a utilização de nossos serviços. Ao utilizar a Plataforma, você declara ter lido e
+        concordado com todas as disposições aqui descritas.
+    </p>
 
-                    <p><strong>1. OBJETIVO E PROPÓSITO DA PLATAFORMA</strong></p>
-                    <p>
-                        1.1. A Plataforma tem como objetivo oferecer um ambiente <strong>positivo e amigável</strong> para que os Usuários publiquem postagens e interajam com conteúdo gerado por outros.<br>
-                        1.2. A fim de promover um convívio harmonioso, a Plataforma conta com o monitoramento de uma rede neural chamada <strong>BERTimbau</strong>, treinada para identificar e barrar postagens que promovam discurso de ódio ou linguagem ofensiva.
-                    </p>
+    <h4>1. OBJETIVO E PROPÓSITO DA PLATAFORMA</h4>
+    <p>
+        <strong>1.1.</strong> A Plataforma tem como objetivo oferecer um ambiente digital para publicação de
+        mensagens curtas, visando promover um convívio respeitoso e positivo entre os Usuários.<br>
+        <strong>1.2.</strong> Para garantir um ambiente seguro, a Plataforma utiliza a rede neural
+        <strong>BERTimbau</strong>, treinada para detectar e barrar postagens contendo linguagem ofensiva ou
+        discurso de ódio.
+    </p>
 
-                    <p><strong>2. CADASTRO E USO DA PLATAFORMA</strong></p>
-                    <p>
-                        2.1. Para acessar e utilizar a Plataforma, o Usuário deverá criar uma conta e fornecer informações cadastrais verdadeiras e atualizadas.<br>
-                        2.2. O Usuário é responsável por todas as ações realizadas em sua conta e pelo uso seguro de suas credenciais de acesso (login e senha).<br>
-                        2.3. O Usuário compromete-se a não repassar suas credenciais de acesso a terceiros e a notificar imediatamente a administração da Plataforma em caso de uso não autorizado de sua conta ou qualquer suspeita de violação de segurança.
-                    </p>
+    <h4>2. CADASTRO E USO DA PLATAFORMA</h4>
+    <p>
+        <strong>2.1.</strong> Para acessar a Plataforma, é necessário criar uma conta, fornecendo informações
+        verídicas e completas.<br>
+        <strong>2.2.</strong> O Usuário é responsável pela segurança de suas credenciais de acesso e por todas as
+        ações realizadas em sua conta.<br>
+        <strong>2.3.</strong> O uso de identidades falsas, contas fraudulentas ou qualquer tentativa de acessar contas
+        de terceiros resultará no encerramento da conta e, se aplicável, em medidas legais.
+    </p>
 
-                    <p><strong>3. CONTEÚDO E REGRAS DE POSTAGEM</strong></p>
-                    <p>
-                        3.1. O Usuário poderá criar postagens em texto, respeitando as regras de convivência e as leis vigentes.<br>
-                        3.2. As postagens poderão ser visualizadas e comentadas por outros Usuários, observadas as restrições estabelecidas nestes Termos.<br>
-                        3.3. <strong>É proibido publicar ou disseminar conteúdo que seja considerado ofensivo ou que constitua discurso de ódio.</strong><br>
-                        3.4. Entre os alvos de discurso de ódio monitorados pela BERTimbau incluem-se (mas não se limitam a):<br>
-                        - Xenofobia<br>
-                        - Racismo<br>
-                        - Homofobia<br>
-                        - Sexismo<br>
-                        - Intolerância religiosa<br>
-                        - Partidarismo<br>
-                        - Desculpas pela ditadura<br>
-                        - Antissemitismo<br>
-                        - Fatfobia<br><br>
-                        3.5. A Plataforma, por meio da análise da rede neural BERTimbau, poderá negar a publicação ou remover qualquer postagem que viole as regras acima.<br>
-                        3.6. Caso o Usuário insista em publicar conteúdo que viole estes Termos, poderá sofrer suspensão ou cancelamento de sua conta, a critério exclusivo da administração.
-                    </p>
+    <h4>3. CONTEÚDO E REGRAS DE POSTAGEM</h4>
+    <p>
+        <strong>3.1.</strong> O Usuário pode criar postagens em texto, respeitando as regras de convivência da
+        Plataforma e as leis aplicáveis.<br>
+        <strong>3.2. Proibições de Conteúdo:</strong> É proibido publicar postagens que incluam:
+    </p>
+    <ul>
+        <li>Discurso de ódio (por exemplo, racismo, homofobia, intolerância religiosa).</li>
+        <li>Conteúdo explícito, ofensivo ou impróprio.</li>
+        <li>Assédio ou incitação à violência.</li>
+    </ul>
+    <p>
+        <strong>3.3.</strong> Todas as postagens são analisadas automaticamente pela BERTimbau. Caso a postagem seja
+        classificada como ofensiva, o Usuário será notificado imediatamente, e a postagem será barrada.<br>
+        <strong>3.4.</strong> Usuários reincidentes em postagens proibidas poderão ter suas contas suspensas ou
+        encerradas.
+    </p>
 
-                    <p><strong>4. ANÁLISE E MODERAÇÃO DE CONTEÚDO</strong></p>
-                    <p>
-                        4.1. Todas as postagens são analisadas pela BERTimbau, treinada com base em um dataset que busca identificar termos e contextos associados a discurso de ódio ou linguagem ofensiva.<br>
-                        4.2. Em caso de detecção de conteúdo potencialmente ofensivo, a postagem será barrada para revisão manual pela equipe de moderação ou removida de forma imediata, conforme o grau de gravidade.<br>
-                        4.3. A decisão de moderação pode ser reconsiderada a critério da administração, mediante justificativa do Usuário e avaliação de possíveis erros de classificação pela rede neural.
-                    </p>
+    <h4>4. LIMITAÇÕES E RESPONSABILIDADE DO USUÁRIO</h4>
+    <p>
+        <strong>4.1.</strong> O Usuário compromete-se a:
+    </p>
+    <ul>
+        <li>Utilizar a Plataforma de maneira ética e responsável.</li>
+        <li>Respeitar as regras de postagem e convívio estabelecidas nestes Termos.</li>
+    </ul>
+    <p>
+        <strong>4.2.</strong> O Usuário é responsável pelo conteúdo que publica e por eventuais violações legais
+        decorrentes de suas ações.
+    </p>
 
-                    <p><strong>5. RESPONSABILIDADE DO USUÁRIO</strong></p>
-                    <p>
-                        5.1. O Usuário concorda em utilizar a Plataforma de forma lícita, respeitando a moral, os bons costumes, as leis e as disposições destes Termos.<br>
-                        5.2. Qualquer dano ou prejuízo decorrente do descumprimento destes Termos será de inteira responsabilidade do Usuário infrator, que poderá responder pelas infrações praticadas nas esferas civil, administrativa e/ou penal.
-                    </p>
+    <h4>5. MODERAÇÃO E FUNCIONAMENTO DA PLATAFORMA</h4>
+    <p>
+        <strong>5.1.</strong> A moderação de conteúdo é realizada automaticamente pela rede neural BERTimbau.<br>
+        <strong>5.2.</strong> A Plataforma não permite edição de postagens. Usuários podem excluir suas postagens
+        diretamente.<br>
+        <strong>5.3.</strong> Não há suporte a curtidas ou comentários em postagens.
+    </p>
 
-                    <p><strong>6. LIMITAÇÃO DE RESPONSABILIDADE DA PLATAFORMA</strong></p>
-                    <p>
-                        6.1. A Plataforma envidará esforços para manter um ambiente seguro e amigável, utilizando a rede neural BERTimbau para a identificação de conteúdo ofensivo. Ainda assim, não há garantia de eliminação completa de postagens impróprias ou violações.<br>
-                        6.2. A Plataforma não se responsabiliza por postagens ou ações de qualquer Usuário, mas reserva-se o direito de tomar as medidas cabíveis a fim de barrar conteúdo proibido e manter o ambiente harmonioso.
-                    </p>
+    <h4>6. PRIVACIDADE E DADOS PESSOAIS</h4>
+    <p>
+        <strong>6.1.</strong> Os dados do Usuário serão tratados em conformidade com a legislação vigente e conforme
+        descrito na nossa <a href="#">Política de Privacidade</a>.<br>
+        <strong>6.2.</strong> Informações fornecidas durante o uso da Plataforma, como postagens e interações, são
+        armazenadas para fins de operação e segurança do sistema.
+    </p>
 
-                    <p><strong>7. PRIVACIDADE E PROTEÇÃO DE DADOS</strong></p>
-                    <p>
-                        7.1. Os dados fornecidos pelo Usuário durante o cadastro e uso da Plataforma serão tratados em conformidade com a legislação aplicável.<br>
-                        7.2. Informações sobre tratamento de dados pessoais, políticas de cookies e demais práticas estão descritas na nossa <strong>Política de Privacidade</strong> (documento separado).
-                    </p>
+    <h4>7. SUSPENSÃO E ENCERRAMENTO DE CONTAS</h4>
+    <p>
+        O Usuário pode solicitar o encerramento de sua conta, mas algumas informações poderão ser retidas para cumprir
+        obrigações legais.
+    </p>
 
-                    <p><strong>8. SUSPENSÃO E ENCERRAMENTO DA CONTA</strong></p>
-                    <p>
-                        8.1. A Plataforma se reserva o direito de suspender ou encerrar a conta de qualquer Usuário que viole estes Termos ou que contribua para a disseminação de conteúdo ofensivo, sem prejuízo de adoção de outras medidas judiciais ou administrativas cabíveis.<br>
-                        8.2. O Usuário poderá optar por encerrar voluntariamente sua conta, devendo seguir as orientações fornecidas na Plataforma. Nesse caso, a Plataforma poderá manter registros de postagem de acordo com as obrigações legais e políticas internas.
-                    </p>
+    <h4>8. ALTERAÇÕES NOS TERMOS DE USO</h4>
+    <p>
+        <strong>8.1.</strong> A Plataforma reserva-se o direito de atualizar estes Termos para refletir mudanças no
+        serviço ou na legislação aplicável.<br>
+        <strong>8.2.</strong> O Usuário será informado sobre alterações significativas, e o uso continuado dos
+        serviços após tais mudanças configurará aceitação dos novos Termos.
+    </p>
 
-                    <p><strong>9. ALTERAÇÕES NOS TERMOS DE USO</strong></p>
-                    <p>
-                        9.1. Estes Termos podem ser atualizados ou modificados periodicamente para garantir o melhor funcionamento da Plataforma.<br>
-                        9.2. O Usuário será comunicado sobre alterações substanciais, e o uso continuado da Plataforma após tais mudanças configurará aceite das novas disposições.
-                    </p>
+    <h4>9. DISPOSIÇÕES GERAIS</h4>
+    <p>
+        <strong>9.1.</strong> A eventual invalidade de qualquer cláusula destes Termos não prejudicará a validade
+        das demais disposições.<br>
+        <strong>9.2.</strong> Estes Termos são regidos pela legislação brasileira, sendo eleito o foro da
+        Comarca de Ituiutaba para dirimir quaisquer controvérsias.
+    </p>
 
-                    <p><strong>10. DISPOSIÇÕES GERAIS</strong></p>
-                    <p>
-                        10.1. A eventual nulidade ou inexequibilidade de qualquer item destes Termos não prejudicará as demais disposições, que permanecerão em pleno vigor.<br>
-                        10.2. Estes Termos são regidos pela legislação em vigor [inserir a jurisdição aplicável], e qualquer controvérsia relacionada à interpretação ou cumprimento destas regras será submetida ao foro [inserir o foro de eleição].
-                    </p>
+    <p><strong>Última atualização:</strong> 15/01/2025</p>
 
-                    <p><strong>Última atualização:</strong> [data de publicação dos Termos]</p>
-                    <p>
-                        Ao continuar o uso da Plataforma, o Usuário declara estar ciente e de acordo com todos os itens destes Termos de Uso.  
-                        Caso não concorde, recomenda-se a interrupção imediata de acesso e utilização dos serviços.
-                    </p>
-                </div>
+    <p>
+        Ao continuar utilizando a Plataforma, o Usuário declara ter lido, compreendido e aceitado todos os Termos aqui
+        descritos. Caso não concorde com algum item, recomenda-se a interrupção imediata do uso da Plataforma.
+    </p>
+
+</div>
                 <!-- Fim dos Termos de Uso -->
 
                 <!-- Formulário para Concordar ou Não Concordar -->

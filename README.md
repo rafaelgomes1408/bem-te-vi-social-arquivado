@@ -3,7 +3,7 @@
 
 ## Revisar/Avisos
 
-- (Rafael) Revisar os Termos de Uso, e se aplicável Políticas de Privacidade.
+- (Rafael) Criar uma view que redirecione para uma página que abra em uma nova guia para Políticas de Privacidade.
 
 - (Renato) Antes de subir a pasta "Ambiente de Treinamento BERTimbau" com as atualizações feitas para Google Drive. Adicionar ao arquivo "Ambiente_Treinamento_BERTimbau_HateBR\BERTimbau_GPU.ipynb" um comentário que faz referência aos autores de BERTimbau e HateBR.
 
