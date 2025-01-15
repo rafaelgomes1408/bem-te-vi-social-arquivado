@@ -141,5 +141,32 @@
             @endif
         </div>
     </div>
+
+    <!-- Créditos -->
+    <div class="credits text-center mt-5">
+        <button class="btn btn-link text-muted" data-bs-toggle="modal" data-bs-target="#creditosModal">Créditos</button>
+    </div>
+
+    <!-- Modal de Créditos -->
+    <div class="modal fade" id="creditosModal" tabindex="-1" aria-labelledby="creditosModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="creditosModalLabel">Créditos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Este sistema utiliza tecnologias avançadas de PLN, incluindo os modelos BERTimbau e HateBR. Autores:</p>
+                    <ul>
+                        <li><strong>BERTimbau:</strong> Fábio Souza, Rodrigo Nogueira, Roberto Lotufo.</li>
+                        <li><strong>HateBR:</strong> Francielle Vargas, Isabelle Carvalho, Thiago Pardo, Fabrício Benevenuto.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
