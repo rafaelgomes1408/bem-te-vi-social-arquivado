@@ -1,6 +1,10 @@
 ## Status
 - Dica: Concluir a documentação deste repositório antes de migrá-la para o TCC. Bem mais fácil.
 
+## Revisar
+
+- Como a parte do Usuário Administrador não foi implementada, devido a problemas com o Middleware. O botão de Denúncia da postagem ficou inutilizado. (Botão situado na view home.blade.php)
+
 ## Links importantes do projeto Bem-te-vi
 
 - [Domínio](https://bemtevisocial.com.br) - Domínio da rede social.
