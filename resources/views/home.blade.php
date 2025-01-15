@@ -127,10 +127,6 @@
                                     Excluir
                                 </button>
                             </form>
-                        @else
-                            <button class="btn btn-warning btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#denunciarModal-{{ $postagem->idPostagem }}">
-                                Denunciar
-                            </button>
                         @endif
                     </div>
                 @endforeach

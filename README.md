@@ -3,8 +3,6 @@
 
 ## Revisar/Avisos
 
-- Como a parte do Usuário Administrador não foi implementada, devido a problemas com o Middleware. O botão de Denúncia da postagem ficou inutilizado. (Botão situado na view home.blade.php)
-
 - (Renato) Antes de subir a pasta "Ambiente de Treinamento BERTimbau" com as atualizações feitas para Google Drive. Adicionar ao arquivo "Ambiente_Treinamento_BERTimbau_HateBR\BERTimbau_GPU.ipynb" um comentário que faz referência aos autores de BERTimbau e HateBR.
 
 ### Referências
