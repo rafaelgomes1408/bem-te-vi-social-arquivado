@@ -72,7 +72,7 @@
 
     <h4>6. PRIVACIDADE E DADOS PESSOAIS</h4>
     <p>
-        <strong>6.1.</strong> Os dados do Usuário serão tratados em conformidade com a legislação vigente e conforme descrito na nossa <a href="#">Política de Privacidade</a>.<br>
+        <strong>6.1.</strong> Os dados do Usuário serão tratados em conformidade com a legislação vigente e conforme descrito na nossa <a href="{{ route('privacidade') }}" target="_blank">Política de Privacidade</a>.<br>
         <strong>6.2.</strong> Informações fornecidas durante o uso da Plataforma, como postagens e interações, são armazenadas para fins de operação e segurança do sistema.
     </p>
 

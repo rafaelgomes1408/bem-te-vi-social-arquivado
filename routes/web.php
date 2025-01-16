@@ -14,6 +14,11 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/registro', [UsuarioController::class, 'showRegisterForm'])->name('registro');
 Route::post('/registro', [UsuarioController::class, 'register']);
 Route::get('/termos', [UsuarioController::class, 'mostrarTermos'])->name('termos');
+
+Route::get('/privacidade', function () {
+    return view('auth.privacidade');
+})->name('privacidade');
+
 Route::post('/concluir-cadastro', [UsuarioController::class, 'concluirCadastro'])->name('concluirCadastro');
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
