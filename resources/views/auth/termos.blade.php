@@ -31,18 +31,14 @@
 
     <h4>2. CADASTRO E USO DA PLATAFORMA</h4>
     <p>
-        <strong>2.1.</strong> Para acessar a Plataforma, é necessário criar uma conta, fornecendo informações
-        verídicas e completas.<br>
-        <strong>2.2.</strong> O Usuário é responsável pela segurança de suas credenciais de acesso e por todas as
-        ações realizadas em sua conta.<br>
-        <strong>2.3.</strong> O uso de identidades falsas, contas fraudulentas ou qualquer tentativa de acessar contas
-        de terceiros resultará no encerramento da conta e, se aplicável, em medidas legais.
+        <strong>2.1.</strong> Para acessar a Plataforma, é necessário criar uma conta, fornecendo informações verídicas e completas.<br>
+        <strong>2.2.</strong> O Usuário é responsável pela segurança de suas credenciais de acesso e por todas as ações realizadas em sua conta.<br>
+        <strong>2.3.</strong> O uso de identidades falsas, contas fraudulentas ou qualquer tentativa de acessar contas de terceiros resultará no encerramento da conta e, se aplicável, em medidas legais.
     </p>
 
     <h4>3. CONTEÚDO E REGRAS DE POSTAGEM</h4>
     <p>
-        <strong>3.1.</strong> O Usuário pode criar postagens em texto, respeitando as regras de convivência da
-        Plataforma e as leis aplicáveis.<br>
+        <strong>3.1.</strong> O Usuário pode criar postagens em texto, respeitando as regras de convivência da Plataforma e as leis aplicáveis.<br>
         <strong>3.2. Proibições de Conteúdo:</strong> É proibido publicar postagens que incluam:
     </p>
     <ul>
@@ -51,10 +47,8 @@
         <li>Assédio ou incitação à violência.</li>
     </ul>
     <p>
-        <strong>3.3.</strong> Todas as postagens são analisadas automaticamente pela BERTimbau. Caso a postagem seja
-        classificada como ofensiva, o Usuário será notificado imediatamente, e a postagem será barrada.<br>
-        <strong>3.4.</strong> Usuários reincidentes em postagens proibidas poderão ter suas contas suspensas ou
-        encerradas.
+        <strong>3.3.</strong> Todas as postagens são analisadas automaticamente pela BERTimbau. Caso a postagem seja classificada como ofensiva, o Usuário será notificado imediatamente, e a postagem será barrada.<br>
+        <strong>3.4.</strong> Usuários reincidentes em postagens proibidas poderão ter suas contas suspensas ou encerradas.
     </p>
 
     <h4>4. LIMITAÇÕES E RESPONSABILIDADE DO USUÁRIO</h4>
@@ -66,44 +60,36 @@
         <li>Respeitar as regras de postagem e convívio estabelecidas nestes Termos.</li>
     </ul>
     <p>
-        <strong>4.2.</strong> O Usuário é responsável pelo conteúdo que publica e por eventuais violações legais
-        decorrentes de suas ações.
+        <strong>4.2.</strong> O Usuário é responsável pelo conteúdo que publica e por eventuais violações legais decorrentes de suas ações.
     </p>
 
     <h4>5. MODERAÇÃO E FUNCIONAMENTO DA PLATAFORMA</h4>
     <p>
         <strong>5.1.</strong> A moderação de conteúdo é realizada automaticamente pela rede neural BERTimbau.<br>
-        <strong>5.2.</strong> A Plataforma não permite edição de postagens. Usuários podem excluir suas postagens
-        diretamente.<br>
+        <strong>5.2.</strong> A Plataforma não permite edição de postagens. Usuários podem excluir suas postagens diretamente.<br>
         <strong>5.3.</strong> Não há suporte a curtidas ou comentários em postagens.
     </p>
 
     <h4>6. PRIVACIDADE E DADOS PESSOAIS</h4>
     <p>
-        <strong>6.1.</strong> Os dados do Usuário serão tratados em conformidade com a legislação vigente e conforme
-        descrito na nossa <a href="#">Política de Privacidade</a>.<br>
-        <strong>6.2.</strong> Informações fornecidas durante o uso da Plataforma, como postagens e interações, são
-        armazenadas para fins de operação e segurança do sistema.
+        <strong>6.1.</strong> Os dados do Usuário serão tratados em conformidade com a legislação vigente e conforme descrito na nossa <a href="#">Política de Privacidade</a>.<br>
+        <strong>6.2.</strong> Informações fornecidas durante o uso da Plataforma, como postagens e interações, são armazenadas para fins de operação e segurança do sistema.
     </p>
 
     <h4>7. SUSPENSÃO E ENCERRAMENTO DE CONTAS</h4>
     <p>
-        O Usuário pode solicitar o encerramento de sua conta, mas algumas informações poderão ser retidas para cumprir
-        obrigações legais.
+        O Usuário pode solicitar o encerramento de sua conta, mas algumas informações poderão ser retidas para cumprir obrigações legais.
     </p>
 
     <h4>8. ALTERAÇÕES NOS TERMOS DE USO</h4>
     <p>
-        <strong>8.1.</strong> A Plataforma reserva-se o direito de atualizar estes Termos para refletir mudanças no
-        serviço ou na legislação aplicável.<br>
-        <strong>8.2.</strong> O Usuário será informado sobre alterações significativas, e o uso continuado dos
-        serviços após tais mudanças configurará aceitação dos novos Termos.
+        <strong>8.1.</strong> A Plataforma reserva-se o direito de atualizar estes Termos para refletir mudanças no serviço ou na legislação aplicável.<br>
+        <strong>8.2.</strong> O Usuário será informado sobre alterações significativas, e o uso continuado dos serviços após tais mudanças configurará aceitação dos novos Termos.
     </p>
 
     <h4>9. DISPOSIÇÕES GERAIS</h4>
     <p>
-        <strong>9.1.</strong> A eventual invalidade de qualquer cláusula destes Termos não prejudicará a validade
-        das demais disposições.<br>
+        <strong>9.1.</strong> A eventual invalidade de qualquer cláusula destes Termos não prejudicará a validade das demais disposições.<br>
         <strong>9.2.</strong> Estes Termos são regidos pela legislação brasileira, sendo eleito o foro da
         Comarca de Ituiutaba para dirimir quaisquer controvérsias.
     </p>
@@ -111,8 +97,7 @@
     <p><strong>Última atualização:</strong> 15/01/2025</p>
 
     <p>
-        Ao continuar utilizando a Plataforma, o Usuário declara ter lido, compreendido e aceitado todos os Termos aqui
-        descritos. Caso não concorde com algum item, recomenda-se a interrupção imediata do uso da Plataforma.
+        Ao continuar utilizando a Plataforma, o Usuário declara ter lido, compreendido e aceitado todos os Termos aqui descritos. Caso não concorde com algum item, recomenda-se a interrupção imediata do uso da Plataforma.
     </p>
 
 </div>
