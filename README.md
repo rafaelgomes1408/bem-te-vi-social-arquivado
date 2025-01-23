@@ -3,7 +3,7 @@
 
 ## Revisar/Avisos
 
-- Sem avisos
+- Sistema de Recuperação de senha de usuários (não logados) não está funcionando devido ao Mailtrap.
 
 ## Links importantes do projeto Bem-te-vi
 
