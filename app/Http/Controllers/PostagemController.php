@@ -159,8 +159,9 @@ class PostagemController extends Controller
 
     private function analisarTexto(string $conteudo): array
 {
-    $pythonPath = 'C:\\Users\\rafae\\AppData\\Local\\Programs\\Python\\Python311\\python.exe';
-    $scriptPath = 'C:\\Ambiente Virtual Python\\analyze.py';
+    #$pythonPath = 'C:\\Users\\rafae\\AppData\\Local\\Programs\\Python\\Python313\\python.exe';
+    $pythonPath = 'C:\\bertimbau\\venv\\Scripts\\python.exe';
+    $scriptPath = 'C:\\bertimbau\\scripts\\analyze.py';
 
     $command = escapeshellcmd("$pythonPath \"$scriptPath\" \"$conteudo\"");
 

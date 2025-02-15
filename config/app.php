@@ -53,7 +53,7 @@ return [
     */
 
     //'url' => env('APP_URL', 'http://localhost'),
-    'url' => env('APP_URL', 'http://bem-te-vi-social.test/'),
+    'url' => env('APP_URL', 'http://bem-te-vi-social.com.br'),
 
     /*
     |--------------------------------------------------------------------------
