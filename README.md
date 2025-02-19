@@ -6,7 +6,7 @@
 
 - **Cadastro de Usuários**: Permite que usuários criem contas com informações pessoais.
 - **Postagens**: Usuários podem criar e visualizar postagens.
-- **Segurança com BERTimbau**: Utiliza a IA BERTimbau para análise de conteúdo e bloqueio de postagens maliciosas.
+- **Segurança com BERTimbau**: Utiliza a IA BERTimbau para análise de conteúdo e bloqueio de postagens ofensivas.
 
 ## Estrutura do Projeto
 
@@ -43,7 +43,7 @@
 
 ## Autores
 
-[Rafael de Castro Gomes](https://github.com/rafaelcastrogomes)<br>
+[Rafael de Castro Gomes](https://github.com/rafaelgomes1408)<br>
 [Renato Medeiros Guimarães](https://github.com/Rtomedeiros)
 
 ## Links importantes do projeto Bem-te-vi
