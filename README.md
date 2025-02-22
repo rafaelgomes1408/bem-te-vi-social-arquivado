@@ -52,4 +52,4 @@
 - [BERTimbau Base (aka "bert-base-portuguese-cased")](https://huggingface.co/neuralmind/bert-base-portuguese-cased) - Página do BERTimbau no Hugging Face.
 - [HateBR](https://github.com/franciellevargas/HateBR) - Repositório do HateBR, Dataset de linguagem ofensiva e discurso de ódio em português brasileiro.
 - scripts/analyze.py - script para análise de texto, usando o modelo BERTimbau treinado com o Dataset HateBR.
-- BERTimbau treinado com o Dataset HateBR disponível em: https://drive.google.com/file/d/1dXJZuTVL1gFv1i6-dKRrpvtToueqrWaH/view?usp=drive_link
+- BERTimbau treinado com o Dataset HateBR disponível em: https://drive.google.com/file/d/1dXJZuTVL1gFv1i6-dKRrpvtToueqrWaH/view?usp=sharing
